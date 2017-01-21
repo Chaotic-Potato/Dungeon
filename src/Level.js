@@ -1,0 +1,56 @@
+var Level = function(n) {
+	const START_SIZE = 3
+	const MOD = 5
+	this.roomSize = START_SIZE + Math.floor((n - 1) / MOD)	
+	this.rooms = []
+	for (var i = 0; i < this.roomSize; i++) {
+		this.rooms[i] = []
+		for (var j = 0; j < this.roomSize; j++) {
+			this.rooms[i][j] = new Room()
+		}
+	}
+}
+
+Level.prototype = {
+	generateRooms: function(array, x, y) {
+		array[x][y].visited = true
+		var sides = [
+			{name: "north", opp: "south", x: 0, y: -1},
+			{name: "south", opp: "north", x: 0, y: 1},
+			{name: "east", opp: "west", x: 1, y: 0},
+			{name: "west", opp: "east", x: -1, y: 0}
+		]
+		function getSide(x, y) {
+			if (!array[x] || !array[x][y]) {
+				return true
+			}
+			else {
+				return array[x][y].visited
+			}
+		}
+		var choices = []
+		for (i in sides) {
+			if (!getSide(x + sides[i].x, y + sides[i].y)) {
+				choices.push(sides[i])
+			}
+		}
+		if (choices.length != 0) {
+			var newSide = choices[Math.floor(Math.random() * choices.length)]
+			array[x][y].doors[newSide.name] = true
+			array[x + newSide.x][y + newSide.y].doors[newSide.opp] = true
+			this.generateRooms(array, x + newSide.x, y + newSide.y)
+			this.generateRooms(array, x, y)
+		}
+		else {
+			return false
+		}
+	},
+	generate: function() {	
+		this.generateRooms(this.rooms, 0, 0)
+		for (i in this.rooms) {
+			for (j in this.rooms[i]) {
+				delete this.rooms[i][j].visited
+			}
+		}
+	}
+}
