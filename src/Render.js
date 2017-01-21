@@ -33,6 +33,7 @@ var Render = {
 		var funcs = [
 			r.clear,
 			r.room,
+			r.entities,
 			r.player
 		]
 		for (i in funcs) {
@@ -48,6 +49,12 @@ var Render = {
 			}
 		}
 	},
+	entities: function() {
+		var a = g.level.rooms[p.room[0]][p.room[1]].entities
+		for (i in a) {
+			r.drawImage("end", r.getCenterX() + a[i].x - p.x - (a[i].w / 2), r.getCenterY() + a[i].y - p.y - (a[i].h / 2), a[i].w, a[i].h)
+		}
+	},	
 	player: function() {
 		r.drawImage("player", r.getCenterX() - (r.playerSize / 2), r.getCenterY() - (r.playerSize / 2), r.playerSize, r.playerSize)
 	}

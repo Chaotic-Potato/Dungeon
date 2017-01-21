@@ -6,10 +6,11 @@ var Room = function() {
 		west: false
 	}
 	this.visited = false
+	this.entities = []
 }
 
 Room.prototype = {
-	done: function() {
-		delete this.visited
+	spawn: function(e) {
+		this.entities.push(e)
 	}
 }

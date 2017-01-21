@@ -17,7 +17,7 @@ var Game = {
 	newLevel: function() {
 		g.levelNum++
 		g.level = new Level(g.levelNum)
-		g.level.generate()
+		g.level.generate(p.room[0], p.room[1])
 		g.levels[g.levelNum] = g.level
 	},
 	tick: function() {
