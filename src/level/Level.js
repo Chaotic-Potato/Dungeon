@@ -44,7 +44,6 @@ Level.prototype = {
 		else if (!this.end) {
 			this.end = [x, y]
 		}
-		return false
 	},
 	generate: function(x, y) {	
 		this.generateRooms(this.rooms, x, y)

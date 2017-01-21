@@ -2,11 +2,12 @@ var Game = {
 	levelNum: 0,
 	levels: [],
 	keys: {},
+	screen: Screens.game,
 	init: function() {
 		const TICK_RATE = 60
 		g.newLevel()
 		g.loop = setInterval(g.tick, 1000 / TICK_RATE)
-		r.draw()
+		r.drawFrame()
 	},
 	keyDown: function(e) {
 		g.keys[e.key] = true
@@ -21,8 +22,9 @@ var Game = {
 		g.levels[g.levelNum] = g.level
 	},
 	tick: function() {
-		p.tick()
-		r.draw()
+		for (i in g.screen.tick) {
+			g.screen.tick[i]()
+		}
 	}
 }
 
