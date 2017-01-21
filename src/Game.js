@@ -17,6 +17,7 @@ var Game = {
 	newLevel: function() {
 		g.levelNum++
 		g.level = new Level(g.levelNum)
+		g.level.generate()
 		g.levels[g.levelNum] = g.level
 	},
 	tick: function() {
@@ -29,3 +30,4 @@ var g = Game
 document.onkeydown = g.keyDown
 document.onkeyup = g.keyUp
 g.init()
+r.resize()
