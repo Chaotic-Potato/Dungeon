@@ -41,6 +41,12 @@ var Render = {
 	},
 	room: function() {
 		r.drawImage("room", r.getCenterX() - p.x, r.getCenterY() - p.y, r.roomSize, r.roomSize)	
+		var a = g.level.rooms[p.room[0]][p.room[1]].doors
+		for (i in a) {
+			if (a[i]) {
+				r.drawImage(i + "_door", r.getCenterX() - p.x, r.getCenterY() - p.y, r.roomSize, r.roomSize)
+			}
+		}
 	},
 	player: function() {
 		r.drawImage("player", r.getCenterX() - (r.playerSize / 2), r.getCenterY() - (r.playerSize / 2), r.playerSize, r.playerSize)
@@ -49,4 +55,3 @@ var Render = {
 
 var r = Render
 window.onresize = r.resize
-r.resize()
