@@ -1,8 +1,10 @@
 var Player = {
-	x: 0,
-	y: 0,
-	room: [0, 0],
-	speed: 5,
+	init: function() {
+		p.x = 0
+		p.y = 0
+		p.room = [0, 0]
+		p.speed = 5
+	},
 	interact: function() {
 		const MAX_RADIUS = 64
 		var near = []

@@ -1,11 +1,14 @@
 var Game = {
 	loop: null,
 	init: function() {
+		p.init()
 		g.levelNum = 0
 		g.levels = []
 		g.screen = Screens.game
 		g.newLevel()
+		g.pause()
 		g.resume()
+		r.resize()
 		r.drawFrame()
 	},
 	pause: function() {
@@ -45,6 +48,4 @@ var g = Game
 document.onkeydown = k.keyDown
 document.onkeyup = k.keyUp
 window.requestAnimationFrame(r.drawFrame)
-g.init()
-r.resize()
 g.loadMenu(Menus.main)
