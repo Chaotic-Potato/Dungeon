@@ -26,9 +26,9 @@ var Player = {
 			min_obj.ent.interact()
 		}
 	},	
-	move: function(right, up) {
-		p.x += right
-		p.y += up
+	move: function(array) {
+		p.x += array[0] * p.speed
+		p.y += array[1] * p.speed
 
 		/*
 		 *FIX!!!
@@ -71,38 +71,6 @@ var Player = {
 				p.y = r.roomSize - 1
 			}
 		}
-	},
-	moveUpdate: function() {
-		var keys = {
-			w: {vert: true, a: -1},
-			s: {vert: true, a: 1},
-			d: {vert: false, a: 1},
-			a: {vert: false, a: -1}
-		}
-		for (i in keys) {
-			if (g.keys[i]) {
-				if (keys[i].vert){
-					p.move(0, keys[i].a * p.speed)
-				}
-				else {
-					p.move(keys[i].a * p.speed, 0)
-				}
-			}
-		}
-	},
-	keyUpdate: function() {
-		var keys = {
-			e: p.interact
-		}
-		for (i in keys) {
-			if (g.keys[i]) {
-				keys[i]()
-			}
-		}
-	},
-	tick: function() {
-		p.moveUpdate()
-		p.keyUpdate()
 	}
 }
 
