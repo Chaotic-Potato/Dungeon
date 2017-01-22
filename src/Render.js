@@ -4,6 +4,7 @@ var Render = {
 	roomSize: 512,
 	playerSize: 64,
 	scale: 1,
+	render: true,
 	getWidth: function() {
 		return window.innerWidth
 	},
@@ -19,7 +20,6 @@ var Render = {
 	resize: function() {
 		get("canvas").width = r.getWidth()
 		get("canvas").height = r.getHeight()
-		r.drawFrame()
 	},
 	clear: function() {
 		r.ctxt.clearRect(0, 0, r.getWidth(), r.getHeight())
@@ -34,6 +34,9 @@ var Render = {
 		for (i in g.screen.render) {
 			g.screen.render[i]()
 		}		
+		if (r.render) {
+			window.requestAnimationFrame(r.drawFrame)
+		}
 	},
 	room: function() {
 		r.drawImage("room", r.getCenterX() - p.x, r.getCenterY() - p.y, r.roomSize, r.roomSize)	

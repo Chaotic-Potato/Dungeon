@@ -1,7 +1,6 @@
 var Screens = {
 	game: new Screen([
-		p.tick,
-		r.drawFrame
+		k.tick,
 	],
 	[
 		r.room,

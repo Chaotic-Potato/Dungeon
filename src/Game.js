@@ -1,5 +1,5 @@
 var Game = {
-	keys: {},
+	loop: null,
 	init: function() {
 		g.levelNum = 0
 		g.levels = []
@@ -10,16 +10,15 @@ var Game = {
 	},
 	pause: function() {
 		clearInterval(g.loop)	
+		r.render = false
+		window.requestAnimationFrame(r.clear)
 	},
 	resume: function() {
 		const TICK_RATE = 60
+		g.pause()
+		r.render = true
+		r.drawFrame()
 		g.loop = setInterval(g.tick, 1000 / TICK_RATE)
-	},
-	keyDown: function(e) {
-		g.keys[e.key] = true
-	},
-	keyUp: function(e) {
-		g.keys[e.key] = false
 	},
 	newLevel: function() {
 		g.levelNum++
@@ -32,19 +31,20 @@ var Game = {
 			g.screen.tick[i]()
 		}
 	},
-	loadMenu: function(menu) {
+	loadMenu: function(menu = Menus.pause) {
 		g.pause()
-		r.clear()
 		get("menu").innerHTML = menu.getHtml()
 	},
 	exitMenu: function(menu) {
 		get("menu").innerHTML = ""
 		g.resume()
-	}
+	},
 }
 
 var g = Game
-document.onkeydown = g.keyDown
-document.onkeyup = g.keyUp
+document.onkeydown = k.keyDown
+document.onkeyup = k.keyUp
+window.requestAnimationFrame(r.drawFrame)
 g.init()
 r.resize()
+g.loadMenu(Menus.main)

@@ -1,13 +1,13 @@
-var Menu = function(buttons = []) {
-	this.buttons = buttons	
+var Menu = function(elements = []) {
+	this.elements = elements	
 }
 
 Menu.prototype = {
 	getHtml: function() {
 		var out = ""
 		out += "<div class='center'>"
-		for (i in this.buttons) {
-			out += this.buttons[i].getHtml()
+		for (i in this.elements) {
+			out += this.elements[i].getHtml() + "<br>"
 		}
 		out += "</div>"
 		return out
