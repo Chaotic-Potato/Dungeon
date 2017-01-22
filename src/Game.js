@@ -1,13 +1,19 @@
 var Game = {
-	levelNum: 0,
-	levels: [],
 	keys: {},
-	screen: Screens.game,
 	init: function() {
-		const TICK_RATE = 60
+		g.levelNum = 0
+		g.levels = []
+		g.screen = Screens.game
 		g.newLevel()
-		g.loop = setInterval(g.tick, 1000 / TICK_RATE)
+		g.resume()
 		r.drawFrame()
+	},
+	pause: function() {
+		clearInterval(g.loop)	
+	},
+	resume: function() {
+		const TICK_RATE = 60
+		g.loop = setInterval(g.tick, 1000 / TICK_RATE)
 	},
 	keyDown: function(e) {
 		g.keys[e.key] = true
@@ -25,6 +31,15 @@ var Game = {
 		for (i in g.screen.tick) {
 			g.screen.tick[i]()
 		}
+	},
+	loadMenu: function(menu) {
+		g.pause()
+		r.clear()
+		get("menu").innerHTML = menu.getHtml()
+	},
+	exitMenu: function(menu) {
+		get("menu").innerHTML = ""
+		g.resume()
 	}
 }
 

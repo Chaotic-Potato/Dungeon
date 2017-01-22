@@ -7,6 +7,5 @@ var Screens = {
 		r.room,
 		r.entities,
 		r.player
-	]),
-	menu: new Screen()
+	])
 }
