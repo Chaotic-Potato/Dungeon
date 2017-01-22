@@ -3,9 +3,32 @@ var Player = {
 	y: 0,
 	room: [0, 0],
 	speed: 5,
-	move: function(right, up) {
-		p.x += right
-		p.y += up
+	interact: function() {
+		const MAX_RADIUS = 64
+		var near = []
+		var a = g.level.rooms[p.room[0]][p.room[1]].entities
+		for (i in a) {
+			var r = rad(a[i].x, a[i].y, p.x, p.y)
+			if (r <= MAX_RADIUS) {
+				near.push({ent: a[i], rad: r})
+			}
+		}	
+		if (near.length == 0) {return}
+		else {
+			var min_rad = near[0].rad
+			var min_obj = near[0]
+			for (var i = 0; i < near.length; i++) {
+				if (near[i].rad < min_rad) {
+					min_rad = near[i].rad
+					min_obj = near[i]
+				}
+			}
+			min_obj.ent.interact()
+		}
+	},	
+	move: function(array) {
+		p.x += array[0] * p.speed
+		p.y += array[1] * p.speed
 
 		/*
 		 *FIX!!!
@@ -48,27 +71,6 @@ var Player = {
 				p.y = r.roomSize - 1
 			}
 		}
-	},
-	moveUpdate: function() {
-		var keys = {
-			w: {vert: true, a: -1},
-			s: {vert: true, a: 1},
-			d: {vert: false, a: 1},
-			a: {vert: false, a: -1}
-		}
-		for (i in keys) {
-			if (!!g.keys[i]) {
-				if (keys[i].vert){
-					p.move(0, keys[i].a * p.speed)
-				}
-				else {
-					p.move(keys[i].a * p.speed, 0)
-				}
-			}
-		}
-	},
-	tick: function() {
-		p.moveUpdate()
 	}
 }
 

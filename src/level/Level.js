@@ -41,16 +41,18 @@ Level.prototype = {
 			this.generateRooms(array, x + newSide.x, y + newSide.y)
 			this.generateRooms(array, x, y)
 		}
-		else {
-			return false
+		else if (!this.end) {
+			this.end = [x, y]
 		}
 	},
-	generate: function() {	
-		this.generateRooms(this.rooms, 0, 0)
+	generate: function(x, y) {	
+		this.generateRooms(this.rooms, x, y)
 		for (i in this.rooms) {
 			for (j in this.rooms[i]) {
 				delete this.rooms[i][j].visited
 			}
 		}
+		this.rooms[this.end[0]][this.end[1]].spawn(new Entities.type.End(255, 255))
+		delete this.end
 	}
 }
