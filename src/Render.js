@@ -4,7 +4,7 @@ var Render = {
 	roomSize: 512,
 	playerSize: 64,
 	scale: 1,
-	render: true,
+	render: false,
 	getWidth: function() {
 		return window.innerWidth
 	},
@@ -59,4 +59,3 @@ var Render = {
 }
 
 var r = Render
-window.onresize = r.resize
