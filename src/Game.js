@@ -1,5 +1,6 @@
 var Game = {
 	loop: null,
+	screen: Screens.game,
 	init: function() {
 		p.init()
 		g.levelNum = 0
@@ -9,12 +10,11 @@ var Game = {
 		g.pause()
 		g.resume()
 		r.resize()
-		r.drawFrame()
 	},
 	pause: function() {
 		clearInterval(g.loop)	
 		r.render = false
-		window.requestAnimationFrame(r.clear)
+		r.clear()
 	},
 	resume: function() {
 		const TICK_RATE = 60
@@ -41,11 +41,11 @@ var Game = {
 	exitMenu: function(menu) {
 		get("menu").innerHTML = ""
 		g.resume()
-	},
+	}
 }
 
 var g = Game
 document.onkeydown = k.keyDown
 document.onkeyup = k.keyUp
-window.requestAnimationFrame(r.drawFrame)
+window.onresize = r.resize
 g.loadMenu(Menus.main)

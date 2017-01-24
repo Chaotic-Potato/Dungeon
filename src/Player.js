@@ -4,6 +4,7 @@ var Player = {
 		p.y = 0
 		p.room = [0, 0]
 		p.speed = 5
+		p.inventory = new Inventory(10, 5)
 	},
 	interact: function() {
 		const MAX_RADIUS = 64
