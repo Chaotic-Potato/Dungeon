@@ -34,18 +34,29 @@ var Game = {
 			g.screen.tick[i]()
 		}
 	},
-	loadMenu: function(menu = Menus.pause) {
+	loadMenu: function(menu) {
 		g.pause()
-		get("menu").innerHTML = menu.getHtml()
+		get("menu").innerHTML = Menus[menu].getHtml()
 	},
 	exitMenu: function(menu) {
 		get("menu").innerHTML = ""
 		g.resume()
+	},
+	click: function(e) {
+		for (i in g.screen.clickboxes) {
+			var a = g.screen.clickboxes[i]
+			if (range(e.offsetX, e.offsetY, a.x(), a.y(), a.x() + a.w, a.y() + a.h)) {
+				a.click()
+				return
+			}
+		}
 	}
 }
 
 var g = Game
 document.onkeydown = k.keyDown
 document.onkeyup = k.keyUp
+document.onkeypress = k.keyPress
 window.onresize = r.resize
-g.loadMenu(Menus.main)
+document.onclick = g.click
+g.loadMenu("main")

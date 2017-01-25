@@ -29,12 +29,17 @@ var Render = {
 		img.src = "imgs/" + src + ".png"
 		r.ctxt.drawImage(img, x, y, w, h)
 	},
+	drawText: function(font, color, text, x, y) {
+		r.ctxt.font = font
+		r.ctxt.fillStyle = color
+		r.ctxt.fillText(text, x, y)
+	},
 	drawFrame: function() {
-		r.clear()
-		for (i in g.screen.render) {
-			g.screen.render[i]()
-		}		
 		if (r.render) {
+			r.clear()
+			for (i in g.screen.render) {
+				g.screen.render[i]()
+			}		
 			window.requestAnimationFrame(r.drawFrame)
 		}
 	},
@@ -55,6 +60,21 @@ var Render = {
 	},	
 	player: function() {
 		r.drawImage("player", r.getCenterX() - (r.playerSize / 2), r.getCenterY() - (r.playerSize / 2), r.playerSize, r.playerSize)
+	},
+	clickboxes: function() {
+		for (i in g.screen.clickboxes) {
+			var a = g.screen.clickboxes[i]
+			r.drawImage(a.texture, a.x(), a.y(), a.w, a.h)
+		}
+	},
+	stats: function() {
+		r.drawText("bold small-caps 96px Arial", "#000", "Player Stats:", 64, 160)
+		var i = 0;
+		for (i in Stats.list) {
+			var a = Stats.list[i]
+			r.drawText("bold small-caps 48px Arial", "#000", a.name + ": " + a.lvl + (a.lvl == a.baseLvl ? "" : " [" + a.baseLvl + (a.lvl > a.baseLvl ? "+" : "-") + Math.abs(a.lvl - a.baseLvl)  + "]") + (a.max == -1 ? "" : " / " + a.max), 64, 232 + (i * 64))
+			i++
+		}
 	}
 }
 
