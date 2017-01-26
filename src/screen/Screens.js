@@ -1,12 +1,13 @@
 var Screens = {
 	game: new Screen([
-			k.tick,
+			k.tick
 		],
 		[
 			r.room,
 			r.entities,
 			r.player,
-			r.clickboxes
+			r.clickboxes,
+			r.hudStats
 		],
 		[
 			new Clickbox(function(){g.screen = Screens.stats}, "charScreen", function(){return r.getWidth() - 192}, function(){return r.getHeight() - 64}, 64, 64),
@@ -22,9 +23,17 @@ var Screens = {
 			r.stats,
 			r.clickboxes
 		], 
-		[
-			new Clickbox(function(){g.screen = Screens.game}, "exit", function(){return r.getWidth() - 64}, function(){return 0}, 64, 64)
-		]
+		(function(){
+			var a = [new Clickbox(function(){g.screen = Screens.game}, "exit", function(){return r.getWidth() - 64}, function(){return 0}, 64, 64)]
+			var i = 0
+			for (x in Stats.list) {
+				const n = i
+				const z = x
+				a.push(new Clickbox(function(){if (p.statPoints > 0) {Stats.list[z].baseLvl++;Stats.list[z].update(); p.statPoints--}}, "statAdd", function(){return 64}, function() {return 184 + 72 * n}, 64, 64))
+				i++
+			}
+			return a 
+		})()
 	),
 	inv: new Screen(
 		[

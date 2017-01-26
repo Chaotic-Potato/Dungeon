@@ -1,7 +1,6 @@
-var Stat = function(name, start, lvlBoost, max) {
+var Stat = function(name, start, max) {
 	this.name = name
 	this.baseLvl = start 
-	this.lvlBoost
 	this.max = max
 	this.lvl = start
 }
@@ -9,11 +8,15 @@ var Stat = function(name, start, lvlBoost, max) {
 Stat.prototype = {
 	update: function() {
 		this.lvl = this.baseLvl
-		for (i in p.equipment) {
-			this.lvl += p.equipment[i][0].statChange[this.name] || 0
+		for (i in p.equipment.items) {
+			this.lvl += (p.equipment.items[i][0] == null ? 0 : p.equipment[i][0].items.statChange[this.name])
 		}	
 	},
 	lvlUp: function() {
-		this.baseLvl = (max == -1 ? this.baseLvl + this.lvlBoost : Math.min(this.baseLvl + this.lvlBoost, this. max))
+		if (baseLvl = max) { 
+			this.baseLvl = Math.min(this.baseLvl + 1, this. max)
+			return true
+		}
+		return false
 	}
 }
