@@ -10,7 +10,7 @@ var Player = {
 		p.speed = 5
 		p.abilites = []
 		p.inventory = new Inventory(10, 5)
-		p.equipment = new Inventory(5, 3)
+		p.equipment = new Inventory(5, 1)
 	},
 	interact: function() {
 		const MAX_RADIUS = 64
@@ -94,11 +94,11 @@ var Player = {
 	xpProg: function() {
 		return ((p.xp - 50 * (p.getLevel(p.xp) * (p.getLevel(p.xp) - 1))) / (p.getLevel(p.xp) * 100))
 	},
-	getMaxHP: function() {
-		return Math.round(50 * Math.pow(10, Stats.list.VIT.lvl / 100))
+	getMaxHP: function(lvl=Stats.list.VIT.lvl) {
+		return Math.round(50 * Math.pow(10, lvl / 100))
 	},
-	getMaxMana: function() {
-		return Math.round(25 * Math.pow(20, Stats.list.WIS.lvl / 100))
+	getMaxMana: function(lvl=Stats.list.WIS.lvl) {
+		return Math.round(25 * Math.pow(20, lvl / 100))
 	}
 
 }

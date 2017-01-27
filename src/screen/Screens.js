@@ -29,7 +29,7 @@ var Screens = {
 			for (x in Stats.list) {
 				const n = i
 				const z = x
-				a.push(new Clickbox(function(){if (p.statPoints > 0) {Stats.list[z].baseLvl++;Stats.list[z].update(); p.statPoints--}}, "statAdd", function(){return 64}, function() {return 184 + 72 * n}, 64, 64))
+				a.push(new Clickbox(function(){if (p.statPoints > 0 && Stats.list[z].lvlUp()) {Stats.list[z].update(); p.statPoints--}}, "statAdd", function(){return 64}, function() {return 184 + 72 * n}, 64, 64))
 				i++
 			}
 			return a 
