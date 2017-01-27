@@ -7,6 +7,6 @@ var Menus = {
 	pause: new Menu([
 		new Header("PAUSED"),
 		new Button("RESUME", "g.exitMenu()"),
-		new Button("EXIT", "g.loadMenu(Menus.main)") 
+		new Button("EXIT", "g.loadMenu(\"main\")") 
 	]) 
 }

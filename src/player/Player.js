@@ -2,9 +2,15 @@ var Player = {
 	init: function() {
 		p.x = 0
 		p.y = 0
+		p.hp = 50
+		p.mana = 25
+		p.xp = 0
+		p.statPoints = 0
 		p.room = [0, 0]
 		p.speed = 5
+		p.abilites = []
 		p.inventory = new Inventory(10, 5)
+		p.equipment = new Inventory(5, 1)
 	},
 	interact: function() {
 		const MAX_RADIUS = 64
@@ -74,7 +80,27 @@ var Player = {
 				p.y = r.roomSize - 1
 			}
 		}
+	},
+	gainXp: function(n) {
+		var old = p.xp
+		p.xp += n
+		if (p.getLevel(p.xp) > p.getLevel(old)) {
+			p.statPoints += (p.getLevel(p.xp) - p.getLevel(old)) * 3
+		} 
+	},
+	getLevel: function(xp) {
+		return Math.round(Math.sqrt((8 * xp + 100) / 400))
+	},
+	xpProg: function() {
+		return ((p.xp - 50 * (p.getLevel(p.xp) * (p.getLevel(p.xp) - 1))) / (p.getLevel(p.xp) * 100))
+	},
+	getMaxHP: function(lvl=Stats.list.VIT.lvl) {
+		return Math.round(50 * Math.pow(10, lvl / 100))
+	},
+	getMaxMana: function(lvl=Stats.list.WIS.lvl) {
+		return Math.round(25 * Math.pow(20, lvl / 100))
 	}
+
 }
 
 var p = Player

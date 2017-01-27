@@ -6,18 +6,27 @@ var Keyboard = {
 	keyUp: function(e) {
 		k.keys[e.key] = false
 	},
+	keyPress: function(e) {
+		var keys = {
+			e: function() {p.interact()},
+			r: function() {if (g.screen == Screens.stats) {g.screen = Screens.game} else {g.screen = Screens.stats}},
+			q: function() {if (g.screen == Screens.inv) {g.screen = Screens.game} else {g.screen = Screens.inv}}
+		}
+		if (keys[e.key]) {
+			keys[e.key]()
+		}
+	},
 	tick: function() {
 		var keys = {
-			w: {func: p.move, param:[0, -1]},
-			s: {func: p.move, param:[0, 1]},
-			a: {func: p.move, param:[-1, 0]},
-			d: {func: p.move, param:[1, 0]},
-			e: {func: p.interact},
-			Escape: {func: g.loadMenu, param: Menus.pause}
+			w: function() {p.move([0, -1])},
+			s: function() {p.move([0, 1])},
+			a: function() {p.move([-1, 0])},
+			d: function() {p.move([1, 0])},
+			Escape: function() {g.loadMenu("pause")}
 		}
 		for (i in keys) {
 			if (k.keys[i]) {
-				keys[i].func(keys[i].param)
+				keys[i]()
 			}
 		}
 	}
