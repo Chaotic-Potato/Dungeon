@@ -1,5 +1,6 @@
 var Game = {
 	loop: null,
+	screen: Screens.game,
 	init: function() {
 		p.init()
 		g.levelNum = 0
@@ -9,12 +10,11 @@ var Game = {
 		g.pause()
 		g.resume()
 		r.resize()
-		r.drawFrame()
 	},
 	pause: function() {
 		clearInterval(g.loop)	
 		r.render = false
-		window.requestAnimationFrame(r.clear)
+		r.clear()
 	},
 	resume: function() {
 		const TICK_RATE = 60
@@ -34,18 +34,49 @@ var Game = {
 			g.screen.tick[i]()
 		}
 	},
-	loadMenu: function(menu = Menus.pause) {
+	loadMenu: function(menu) {
 		g.pause()
-		get("menu").innerHTML = menu.getHtml()
+		get("menu").innerHTML = Menus[menu].getHtml()
 	},
 	exitMenu: function(menu) {
 		get("menu").innerHTML = ""
 		g.resume()
 	},
+	click: function(e) {
+		for (i in g.screen.clickboxes) {
+			var a = g.screen.clickboxes[i]
+			if (range(e.offsetX, e.offsetY, a.x(), a.y(), a.x() + a.w, a.y() + a.h)) {
+				a.click()
+				return
+			}
+		}
+	},
+	unclick: function(e) {
+		for (i in g.screen.clickboxes) {
+			var a = g.screen.clickboxes[i]
+			if (range(e.offsetX, e.offsetY, a.x(), a.y(), a.x() + a.w, a.y() + a.h)) {
+				a.unclick()
+				return
+			}
+		}
+	},
+	rclick: function(e) {
+		for (i in g.screen.clickboxes) {
+			var a = g.screen.clickboxes[i]
+			if (range(e.offsetX, e.offsetY, a.x(), a.y(), a.x() + a.w, a.y() + a.h)) {
+				a.rclick()
+				return
+			}
+		}
+	}
 }
 
 var g = Game
 document.onkeydown = k.keyDown
 document.onkeyup = k.keyUp
-window.requestAnimationFrame(r.drawFrame)
-g.loadMenu(Menus.main)
+document.onkeypress = k.keyPress
+window.onresize = r.resize
+document.onmousedown = g.click
+document.onmouseup = g.unclick
+document.oncontextmenu = g.rclick
+g.loadMenu("main")
