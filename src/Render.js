@@ -67,6 +67,9 @@ var Render = {
 	player: function() {
 		r.drawImage("player", r.getCenterX() - (r.playerSize / 2), r.getCenterY() - (r.playerSize / 2), r.playerSize, r.playerSize)
 	},
+	lvlNum: function() {
+		r.drawText("bold small-caps 48px Arial", "#222", "left", "Floor " + g.levelNum, 8, 56)
+	},
 	clickboxes: function() {
 		for (i in g.screen.clickboxes) {
 			var a = g.screen.clickboxes[i]
@@ -97,8 +100,46 @@ var Render = {
 			r.drawText("24px Arial", "#000", "center", stat[x].disp(), 144, r.getHeight() - 56 * i + 32)
 			i--
 		}
+	},
+	hotbar: function() {
+		const l = p.inventory.items.length
+		r.drawImage("hotbar", r.getCenterX() - (32 * l) - 8, r.getHeight() - 80, 16 + l * 64, 80)	
+		for (var i = 0; i < l; i++) {
+			r.drawImage((p.hotSelect == i ? "selected" : "invSlot"), r.getCenterX() - (64 * (l / 2 - i)), r.getHeight() - 72, 64, 64)
+			if (p.inventory.items[i][0] != null) {
+				r.invSlot(p.inventory, i, 0, r.getCenterX() - (64 * (l / 2 - i)), r.getHeight() - 72, 64)
+			}
+		}
+	},
+	invSlot: function(inv, i, j, x, y, w) {
+		r.drawImage(inv.items[i][j].texture, x, y, w, w)
+		if (inv.items[i][j].amount > 1) {
+			r.drawText("bold " + Math.round(0.25 * w) + "px Arial", "#FFF", "right", inv.items[i][j].amount, x + Math.round(w * 0.9), y + Math.round(w * 0.9))
+		}
+	},
+	inventory: function() {
+		const l = p.inventory.items.length
+		const h = p.inventory.items[0].length
+		var slots = [
+			{x: 0, y: 1},
+			{x: 0, y: 0},
+			{x: 0, y: -1},
+			{x: -1, y: 0},
+			{x: 1, y: 0}
+		]
+		for (i in slots) {
+			if (p.equipment.items[i][0] != null) {
+				r.invSlot(p.equipment, i, 0, 208 + slots[i].x * 144, r.getCenterY() - 64 + slots[i].y * 144, 128)
+			}
+		}
+		for (i in p.inventory.items) {
+			for (j in p.inventory.items[i]) {
+				if (p.inventory.items[i][j] != null) {
+					r.invSlot(p.inventory, i, j, r.getCenterX() + (i - l / 2 + 2) * 136, r.getCenterY() - (j - h / 2 + 1) * 136, 128)
+				}
+			}
+		}
 	}
-	
 }
 
 var r = Render
