@@ -50,6 +50,24 @@ var Game = {
 				return
 			}
 		}
+	},
+	unclick: function(e) {
+		for (i in g.screen.clickboxes) {
+			var a = g.screen.clickboxes[i]
+			if (range(e.offsetX, e.offsetY, a.x(), a.y(), a.x() + a.w, a.y() + a.h)) {
+				a.unclick()
+				return
+			}
+		}
+	},
+	rclick: function(e) {
+		for (i in g.screen.clickboxes) {
+			var a = g.screen.clickboxes[i]
+			if (range(e.offsetX, e.offsetY, a.x(), a.y(), a.x() + a.w, a.y() + a.h)) {
+				a.rclick()
+				return
+			}
+		}
 	}
 }
 
@@ -58,5 +76,7 @@ document.onkeydown = k.keyDown
 document.onkeyup = k.keyUp
 document.onkeypress = k.keyPress
 window.onresize = r.resize
-document.onclick = g.click
+document.onmousedown = g.click
+document.onmouseup = g.unclick
+document.oncontextmenu = g.rclick
 g.loadMenu("main")
