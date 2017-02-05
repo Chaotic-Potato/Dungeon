@@ -1,7 +1,8 @@
-var Level = function(n) {
+var Level = function(n, w) {
 	const START_SIZE = 3
 	const MOD = 5
 	this.roomSize = START_SIZE + Math.floor((n - 1) / MOD)	
+	this.roomWidth = w
 	this.rooms = []
 	for (var i = 0; i < this.roomSize; i++) {
 		this.rooms[i] = []
@@ -44,15 +45,20 @@ Level.prototype = {
 		else if (!this.end) {
 			this.end = [x, y]
 		}
+		else if (x != this.start[0] || y != this.start[1]) {
+			array[x][y].entities = Rooms.getRoom()
+		}
 	},
 	generate: function(x, y) {	
+		this.start = [x, y]
 		this.generateRooms(this.rooms, x, y)
 		for (i in this.rooms) {
 			for (j in this.rooms[i]) {
 				delete this.rooms[i][j].visited
 			}
 		}
-		this.rooms[this.end[0]][this.end[1]].spawn(new Entities.type.End(255, 255))
+		this.rooms[this.end[0]][this.end[1]].entities.push(new Entities.type.End(this.roomWidth / 2, this.roomWidth / 2))
+		delete this.start
 		delete this.end
 	}
 }

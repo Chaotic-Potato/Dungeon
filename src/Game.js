@@ -25,7 +25,7 @@ var Game = {
 	},
 	newLevel: function() {
 		g.levelNum++
-		g.level = new Level(g.levelNum)
+		g.level = new Level(g.levelNum, 1024)
 		g.level.generate(p.room[0], p.room[1])
 		g.levels[g.levelNum] = g.level
 	},
@@ -50,6 +50,7 @@ var Game = {
 				return
 			}
 		}
+		g.use()
 	},
 	unclick: function(e) {
 		for (i in g.screen.clickboxes) {
@@ -67,6 +68,11 @@ var Game = {
 				a.rclick()
 				return
 			}
+		}
+	},
+	use: function() {
+		if (p.inventory.items[0][p.hotSelect] != null) {
+			p.inventory.items[0][p.hotSelect].use()
 		}
 	}
 }

@@ -1,7 +1,6 @@
 var Render = {
 	canvas: get("canvas"),
 	ctxt: get("canvas").getContext("2d"),
-	roomSize: 512,
 	playerSize: 64,
 	scale: 1,
 	render: false,
@@ -50,18 +49,18 @@ var Render = {
 		}
 	},
 	room: function() {
-		r.drawImage("room", r.getCenterX() - p.x, r.getCenterY() - p.y, r.roomSize, r.roomSize)	
+		r.drawImage("room", r.getCenterX() - p.x, r.getCenterY() - p.y, g.level.roomWidth, g.level.roomWidth)	
 		var a = g.level.rooms[p.room[0]][p.room[1]].doors
 		for (i in a) {
 			if (a[i]) {
-				r.drawImage(i + "_door", r.getCenterX() - p.x, r.getCenterY() - p.y, r.roomSize, r.roomSize)
+				r.drawImage(i + "_door", r.getCenterX() - p.x, r.getCenterY() - p.y, g.level.roomWidth, g.level.roomWidth)
 			}
 		}
 	},
 	entities: function() {
 		var a = g.level.rooms[p.room[0]][p.room[1]].entities
 		for (i in a) {
-			r.drawImage("end", r.getCenterX() + a[i].x - p.x - (a[i].w / 2), r.getCenterY() + a[i].y - p.y - (a[i].h / 2), a[i].w, a[i].h)
+			r.drawImage(a[i].texture, r.getCenterX() + a[i].x - p.x - (a[i].w / 2), r.getCenterY() + a[i].y - p.y - (a[i].h / 2), a[i].w, a[i].h)
 		}
 	},	
 	player: function() {

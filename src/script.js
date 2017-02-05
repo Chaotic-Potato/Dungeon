@@ -5,10 +5,11 @@ function clone(o) {var a={};for(i in o){a[i]=o[i]}return a}
 function equals(a, b) {for(i in a){if(a[i]!=b[i]){return false}}for(i in b){if(a[i]!=b[i]){return false}}return true}
 
 var scripts = [
-	"level/Room.js",
-	"level/Level.js",
 	"entity/Entity.js",
 	"entity/Entities.js",
+	"level/Room.js",
+	"level/Rooms.js",
+	"level/Level.js",
 	"Render.js",
 	"item/Item.js",
 	"item/ability/Ability.js",
