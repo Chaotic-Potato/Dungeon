@@ -5,12 +5,6 @@ function clone(o) {var a={};for(i in o){a[i]=o[i]}return a}
 function equals(a, b) {for(i in a){if(a[i]!=b[i]){return false}}for(i in b){if(a[i]!=b[i]){return false}}return true}
 
 var scripts = [
-	"entity/Entity.js",
-	"entity/Entities.js",
-	"level/Room.js",
-	"level/Rooms.js",
-	"level/Level.js",
-	"Render.js",
 	"item/Item.js",
 	"item/ability/Ability.js",
 	"item/weapon/Weapon.js",
@@ -26,6 +20,11 @@ var scripts = [
 	"item/consumable/Scroll.js",
 	"item/Items.js",
 	"item/Inventory.js",
+	"entity/Entity.js",
+	"entity/Entities.js",
+	"level/Room.js",
+	"level/Rooms.js",
+	"level/Level.js",
 	"Player.js",
 	"stat/Stat.js",
 	"stat/Stats.js",
@@ -35,11 +34,23 @@ var scripts = [
 	"menu/Menu.js",
 	"menu/Menus.js",
 	"Keyboard.js",
+	"Render.js",
+	"Game.js",
 	"screen/Screen.js",
-	"screen/Screens.js",
-	"Game.js"
+	"screen/Screens.js"
 ]
 
 for (i in scripts) {
 	document.write("<script src='src/" + scripts[i] + "'></script>")
+}
+window.onload = function() {
+	g.screen = Screens.game
+	document.onkeydown = k.keyDown
+	document.onkeyup = k.keyUp
+	document.onkeypress = k.keyPress
+	window.onresize = r.resize
+	document.onmousedown = g.click
+	document.onmouseup = g.unclick
+	document.oncontextmenu = g.rclick
+	g.loadMenu("main")
 }

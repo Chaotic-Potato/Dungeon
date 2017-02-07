@@ -1,11 +1,10 @@
 var Game = {
 	loop: null,
-	screen: Screens.game,
 	init: function() {
 		p.init()
 		g.levelNum = 0
+		g.openInv = null
 		g.levels = []
-		g.screen = Screens.game
 		g.newLevel()
 		g.pause()
 		g.resume()
@@ -74,15 +73,11 @@ var Game = {
 		if (p.inventory.items[0][p.hotSelect] != null) {
 			p.inventory.items[0][p.hotSelect].use()
 		}
+	},
+	loadInv: function(i) {
+		g.openInv = i
+		g.screen = Screens.openInv
 	}
 }
 
 var g = Game
-document.onkeydown = k.keyDown
-document.onkeyup = k.keyUp
-document.onkeypress = k.keyPress
-window.onresize = r.resize
-document.onmousedown = g.click
-document.onmouseup = g.unclick
-document.oncontextmenu = g.rclick
-g.loadMenu("main")

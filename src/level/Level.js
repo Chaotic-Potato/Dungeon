@@ -57,7 +57,7 @@ Level.prototype = {
 				delete this.rooms[i][j].visited
 			}
 		}
-		this.rooms[this.end[0]][this.end[1]].entities.push(new Entities.type.End(this.roomWidth / 2, this.roomWidth / 2))
+		this.rooms[this.end[0]][this.end[1]].entities.push(new Entities.type.End(function(){return g.level.roomWidth / 2}, function() {return g.level.roomWidth / 2}))
 		delete this.start
 		delete this.end
 	}

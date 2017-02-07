@@ -7,7 +7,6 @@ var Player = {
 		p.xp = 0
 		p.statPoints = 0
 		p.room = [0, 0]
-		p.speed = 5
 		p.abilites = []
 		p.hotSelect = 0
 		p.selected = null
@@ -19,7 +18,7 @@ var Player = {
 		var near = []
 		var a = g.level.rooms[p.room[0]][p.room[1]].entities
 		for (i in a) {
-			var r = rad(a[i].x, a[i].y, p.x, p.y)
+			var r = rad(a[i].x(), a[i].y(), p.x, p.y)
 			if (r <= MAX_RADIUS) {
 				near.push({ent: a[i], rad: r})
 			}
@@ -38,8 +37,8 @@ var Player = {
 		}
 	},	
 	move: function(array) {
-		p.x += array[0] * p.speed
-		p.y += array[1] * p.speed
+		p.x += array[0] * p.getSpeed()
+		p.y += array[1] * p.getSpeed()
 
 		/*
 		 *FIX!!!
@@ -102,52 +101,106 @@ var Player = {
 	getMaxMana: function(lvl=Stats.list.WIS.lvl) {
 		return Math.round(25 * Math.pow(20, lvl / 100))
 	},
+	getSpeed: function(lvl=Stats.list.AGL.lvl) {
+		return Math.round(6 * Math.pow(2, lvl / 100))
+	},
 	onSelect: function(x, y) {
-		p.selected = [x, y, "move"]
+		p.selected = {
+			x: x, 
+			y: y, 
+			type: "move"
+		}
 	},
 	rSelect: function(x, y) {
-		p.selected = [x, y, "half"]
+		p.selected = {
+			x: x,
+			y: y,
+			type: "half"
+		}
 	},
 	unSelect: function(x, y) {
 		if (p.selected != null) {
-			switch (p.selected[2]) {
+			switch (p.selected.type) {
 				case "move":
-					p.inventory.swap(p.selected[0], p.selected[1], x, y)	
+					p.inventory.swap(p.selected.x, p.selected.y, x, y)	
 					break;
 				case "half":
-					p.inventory.half(p.selected[0], p.selected[1], x, y)
+					p.inventory.half(p.selected.x, p.selected.y, x, y)
 					break;
 				case "equip":
 					p.unequip(x, y)
+					break;
+				case "inv":
+					p.withdraw(x, y)
 			}
 			p.selected = null
 		}
 	},
 	equipSelect: function(n) {
-		p.selected = [n, 0, "equip"]
+		p.selected = {
+			x: n,
+			y: 0,
+			type: "equip"
+		}
 	},
 	equip: function(n) {
-		if (p.selected != null && p.inventory.items[p.selected[0]][p.selected[1]] != null && p.equipment.items[n][0] == null && p.inventory.items[p.selected[0]][p.selected[1]].slot == n) {
-			p.equipment.items[n][0] = p.inventory.items[p.selected[0]][p.selected[1]]
-			p.inventory.items[p.selected[0]][p.selected[1]] = null
+		console.log(p.selected)
+		if (p.selected != null && p.inventory.items[p.selected.x][p.selected.y] != null && p.equipment.items[n][0] == null && p.inventory.items[p.selected.x][p.selected.y].slot == n) {
+			p.equipment.items[n][0] = p.inventory.items[p.selected.x][p.selected.y]
+			p.inventory.items[p.selected.x][p.selected.y] = null
 			Stats.update()
 		}
 	},
 	unequip: function(x, y) {
 		if (p.selected != null && p.inventory.items[x][y] == null) {
-			p.inventory.items[x][y] = p.equipment.items[p.selected[0]][p.selected[1]]
-			p.equipment.items[p.selected[0]][p.selected[1]] = null
+			p.inventory.items[x][y] = p.equipment.items[p.selected.x][p.selected.y]
+			p.equipment.items[p.selected.x][p.selected.y] = null
 			Stats.update()
 		}
 	},
+	invSelect: function(n) {
+		p.selected = {
+			x: 0,
+			y: n,
+			type: "inv"
+		}
+	},
+	deposit: function(n) {
+		if (p.selected != null) { 
+			switch (p.selected.type) {
+				case "move":
+					if (p.inventory.items[p.selected.x][p.selected.y] != null && g.openInv.items[0][n] == null) {
+						g.openInv.items[0][n] = p.inventory.items[p.selected.x][p.selected.y]
+						p.inventory.items[p.selected.x][p.selected.y] = null
+					}
+					break;
+				case "inv":
+					if (g.openInv.items[p.selected.x][p.selected.y] != null) {
+						if (g.openInv.items[0][n] == null) {
+							g.openInv.items[0][n] = g.openInv.items[p.selected.x][p.selected.y]
+							g.openInv.items[p.selected.x][p.selected.y] = null
+						}
+						else {
+							g.openInv.swap(0, n, p.selected.x, p.selected.y)
+						}						
+					}
+			}
+		}
+	},
+	withdraw: function(x, y) {
+		if (p.selected != null && p.inventory.items[x][y] == null) {
+			p.inventory.items[x][y] = g.openInv.items[p.selected.x][p.selected.y]
+			g.openInv.items[p.selected.x][p.selected.y] = null
+		}	
+	},
 	del: function() {
 		if (p.selected != null) {
-			if (p.selected[2] == "equip") {
-				p.equipment.items[p.selected[0]][p.selected[1]] = null
+			if (p.selected.type == "equip") {
+				p.equipment.items[p.selected.x][p.selected.y] = null
 				Stats.update()
 			}
 			else {
-				p.inventory.items[p.selected[0]][p.selected[1]] = null
+				p.inventory.items[p.selected.x][p.selected.y] = null
 			}
 		}
 	}

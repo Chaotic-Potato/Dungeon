@@ -1,6 +1,10 @@
 var Rooms = {
 	list: [
-		{weight: 1, obj: []}	
+		{weight: 8, obj: []},
+		{weight: 1, obj: []},
+		{weight: 4, obj: [new Entities.type.Chest(function(){return g.level.roomWidth / 2}, function() {return g.level.roomWidth / 2})]},
+		{weight: 3, obj: []},
+		{weight: 4, obj: []}
 	],
 	getRoom: function() {
 		var total = 0
