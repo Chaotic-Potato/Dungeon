@@ -26,6 +26,8 @@ Inventory.prototype = {
 			this.items[x1][y1].amount = Math.floor(this.items[x1][y1].amount / 2)
 		}
 		else {
+			console.log(this.items[x1][y1])
+			console.log(this.items[x1][y1])
 			this.swap(x1, y1, x2, y2)
 		}
 	},

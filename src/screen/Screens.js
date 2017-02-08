@@ -89,7 +89,7 @@ var Screens = {
 			const h = p.inventory.items[0].length
 			for (var i = 0; i < 5; i++) {
 				const n = i
-				a.push(new Clickbox(function(){p.invSelect(n)}, function(){p.deposit(n)}, function(){}, "invSlot", function(){return 136}, function(){return r.getCenterY() + ((n - g.openInv.items[0].length / 2) * 136)}, 128, 128))
+				a.push(new Clickbox(function(){p.invSelect(n)}, function(){p.deposit(n)}, function(){p.invrSelect(n)}, "invSlot", function(){return 136}, function(){return r.getCenterY() + ((n - g.openInv.items[0].length / 2) * 136)}, 128, 128))
 			}
 			for (i in p.inventory.items) {
 				for (j in p.inventory.items[i]) {

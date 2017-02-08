@@ -132,6 +132,9 @@ var Player = {
 					break;
 				case "inv":
 					p.withdraw(x, y)
+					break;
+				case "invHalf":
+					p.invHalf(x, y)
 			}
 			p.selected = null
 		}
@@ -165,6 +168,13 @@ var Player = {
 			type: "inv"
 		}
 	},
+	invrSelect: function(n) {
+		p.selected = {
+			x: 0,
+			y: n,
+			type: "invHalf"
+		}
+	}, 
 	deposit: function(n) {
 		if (p.selected != null) { 
 			switch (p.selected.type) {
@@ -176,13 +186,11 @@ var Player = {
 					break;
 				case "inv":
 					if (g.openInv.items[p.selected.x][p.selected.y] != null) {
-						if (g.openInv.items[0][n] == null) {
-							g.openInv.items[0][n] = g.openInv.items[p.selected.x][p.selected.y]
-							g.openInv.items[p.selected.x][p.selected.y] = null
-						}
-						else {
-							g.openInv.swap(0, n, p.selected.x, p.selected.y)
-						}						
+						g.openInv.swap(p.selected.x, p.selected.y, 0, n)
+					}
+				case "invHalf":
+					if (g.openInv.items[p.selected.x][p.selected.y] != null) {
+						g.openInv.half(p.selected.x, p.selected.y, 0, n)
 					}
 			}
 		}
