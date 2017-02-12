@@ -67,7 +67,7 @@ var Screens = {
 				for (j in p.inventory.items[i]) {
 					const m = i
 					const n = j
-					a.push(new Clickbox(function(){p.onSelect(m, n)}, function(){p.unSelect(m, n)}, function(){p.rSelect(m, n)}, "invSlot", function(){return r.getCenterX() + (m - l / 2 + 2) * 136}, function(){return r.getCenterY() - (n - h / 2 + 1) * 136}, 128, 128))
+					a.push(new Clickbox(function(){p.select(m, n, true)}, function(){p.unSelect(m, n)}, function(){p.select(m, n, false)}, "invSlot", function(){return r.getCenterX() + (m - l / 2 + 2) * 136}, function(){return r.getCenterY() - (n - h / 2 + 1) * 136}, 128, 128))
 				}
 			}
 			return a
@@ -89,13 +89,13 @@ var Screens = {
 			const h = p.inventory.items[0].length
 			for (var i = 0; i < 5; i++) {
 				const n = i
-				a.push(new Clickbox(function(){p.invSelect(n)}, function(){p.deposit(n)}, function(){p.invrSelect(n)}, "invSlot", function(){return 136}, function(){return r.getCenterY() + ((n - g.openInv.items[0].length / 2) * 136)}, 128, 128))
+				a.push(new Clickbox(function(){p.invSelect(n, true)}, function(){p.deposit(n)}, function(){p.invSelect(n, false)}, "invSlot", function(){return 136}, function(){return r.getCenterY() + ((n - g.openInv.items[0].length / 2) * 136)}, 128, 128))
 			}
 			for (i in p.inventory.items) {
 				for (j in p.inventory.items[i]) {
 					const m = i
 					const n = j
-					a.push(new Clickbox(function(){p.onSelect(m, n)}, function(){p.unSelect(m, n)}, function(){p.rSelect(m, n)}, "invSlot", function(){return r.getCenterX() + (m - l / 2 + 1) * 136}, function(){return r.getCenterY() - (n - h / 2 + 1) * 136}, 128, 128))
+					a.push(new Clickbox(function(){p.select(m, n, true)}, function(){p.unSelect(m, n)}, function(){p.select(m, n, false)}, "invSlot", function(){return r.getCenterX() + (m - l / 2 + 1) * 136}, function(){return r.getCenterY() - (n - h / 2 + 1) * 136}, 128, 128))
 				}
 			}
 			return a

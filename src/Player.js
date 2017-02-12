@@ -104,37 +104,26 @@ var Player = {
 	getSpeed: function(lvl=Stats.list.AGL.lvl) {
 		return Math.round(6 * Math.pow(2, lvl / 100))
 	},
-	onSelect: function(x, y) {
+	select: function(x, y, click) {
 		p.selected = {
 			x: x, 
 			y: y, 
-			type: "move"
-		}
-	},
-	rSelect: function(x, y) {
-		p.selected = {
-			x: x,
-			y: y,
-			type: "half"
+			type: "main",
+			click: click
 		}
 	},
 	unSelect: function(x, y) {
 		if (p.selected != null) {
 			switch (p.selected.type) {
-				case "move":
-					p.inventory.swap(p.selected.x, p.selected.y, x, y)	
-					break;
-				case "half":
-					p.inventory.half(p.selected.x, p.selected.y, x, y)
+				case "main":
+					p.inventory[p.selected.click ? "swap" : "half"](p.selected.x, p.selected.y, x, y)	
 					break;
 				case "equip":
-					p.unequip(x, y)
+					p.equipment.swap(p.selected.x, p.selected.y, x, y, p.inventory)
+					Stats.update()
 					break;
 				case "inv":
-					p.withdraw(x, y)
-					break;
-				case "invHalf":
-					p.invHalf(x, y)
+					g.openInv[p.selected.click ? "swap" : "half"](p.selected.x, p.selected.y, x, y, p.inventory)
 			}
 			p.selected = null
 		}
@@ -143,63 +132,35 @@ var Player = {
 		p.selected = {
 			x: n,
 			y: 0,
-			type: "equip"
+			type: "equip",
+			click: true
 		}
 	},
 	equip: function(n) {
-		console.log(p.selected)
-		if (p.selected != null && p.inventory.items[p.selected.x][p.selected.y] != null && p.equipment.items[n][0] == null && p.inventory.items[p.selected.x][p.selected.y].slot == n) {
-			p.equipment.items[n][0] = p.inventory.items[p.selected.x][p.selected.y]
-			p.inventory.items[p.selected.x][p.selected.y] = null
+		if (p.inventory.items[p.selected.x][p.selected.y].slot == n) {
+			p.inventory.swap(p.selected.x, p.selected.y, n, 0, p.equipment)
 			Stats.update()
 		}
 	},
-	unequip: function(x, y) {
-		if (p.selected != null && p.inventory.items[x][y] == null) {
-			p.inventory.items[x][y] = p.equipment.items[p.selected.x][p.selected.y]
-			p.equipment.items[p.selected.x][p.selected.y] = null
-			Stats.update()
-		}
-	},
-	invSelect: function(n) {
+	invSelect: function(n, click) {
 		p.selected = {
 			x: 0,
 			y: n,
-			type: "inv"
+			type: "inv",
+			click: click
 		}
 	},
-	invrSelect: function(n) {
-		p.selected = {
-			x: 0,
-			y: n,
-			type: "invHalf"
-		}
-	}, 
 	deposit: function(n) {
 		if (p.selected != null) { 
 			switch (p.selected.type) {
-				case "move":
-					if (p.inventory.items[p.selected.x][p.selected.y] != null && g.openInv.items[0][n] == null) {
-						g.openInv.items[0][n] = p.inventory.items[p.selected.x][p.selected.y]
-						p.inventory.items[p.selected.x][p.selected.y] = null
-					}
+				case "main":
+					p.inventory[p.selected.click ? "swap" : "half"](p.selected.x, p.selected.y, 0, n, g.openInv)
 					break;
 				case "inv":
-					if (g.openInv.items[p.selected.x][p.selected.y] != null) {
-						g.openInv.swap(p.selected.x, p.selected.y, 0, n)
-					}
-				case "invHalf":
-					if (g.openInv.items[p.selected.x][p.selected.y] != null) {
-						g.openInv.half(p.selected.x, p.selected.y, 0, n)
-					}
+					g.openInv[p.selected.click ? "swap" : "half"](p.selected.x, p.selected.y, 0, n)
 			}
+			p.selected = null
 		}
-	},
-	withdraw: function(x, y) {
-		if (p.selected != null && p.inventory.items[x][y] == null) {
-			p.inventory.items[x][y] = g.openInv.items[p.selected.x][p.selected.y]
-			g.openInv.items[p.selected.x][p.selected.y] = null
-		}	
 	},
 	del: function() {
 		if (p.selected != null) {
