@@ -36,7 +36,10 @@ var scripts = [
 	"menu/Menu.js",
 	"menu/Menus.js",
 	"Keyboard.js",
-	"Render.js",
+	"render/Stack.js",
+	"render/Animation.js",
+	"render/Animations.js",
+	"render/Render.js",
 	"screen/Screen.js",
 	"screen/Screens.js"
 ]
