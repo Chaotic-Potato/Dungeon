@@ -1,6 +1,7 @@
 var Screens = {
 	game: new Screen([
 			k.tick,
+			p.tick,
 			g.entityTick
 		],
 		[

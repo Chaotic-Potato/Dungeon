@@ -11,10 +11,11 @@ var Entities = {
 		e.inventory = new Inventory(1, 5)
 		return e
 	},
-	Saw: function(x, y) {
-		var e = new Entity(x, y, "end", 64, 64, function(){}, function(){})
-		e.velX = 5
-		e.velY = 0
+	Saw: function(x, y, w, h, velX, velY, damage) {
+		var e = new Entity(x, y, "saw", w, h, function(){}, function(){})
+		e.velX = velX
+		e.velY = velY
+		e.damage = damage
 		e.tick = function() {
 			this.x = Math.max(0, Math.min(g.level.roomWidth - 1, this.x + this.velX))
 			this.y = Math.max(0, Math.min(g.level.roomWidth - 1, this.y + this.velY))
@@ -23,6 +24,9 @@ var Entities = {
 			}
 			if (Math.abs(this.y - (g.level.roomWidth - 1) / 2) >= (g.level.roomWidth - 1) / 2) {
 				this.velY *= -1
+			}
+			if (range(this.x, this.y, p.x - this.w, p.y - this.h, p.x + this.w, p.y + this.h)) {
+				p.damage(this.damage)
 			}
 		}
 		return e

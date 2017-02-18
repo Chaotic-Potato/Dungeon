@@ -1,9 +1,11 @@
 var Game = {
 	loop: null,
+	started: false,
 	init: function() {
 		p.init()
 		g.levelNum = 0
 		g.openInv = null
+		g.started = true
 		g.levels = []
 		g.newLevel()
 		g.pause()
@@ -21,6 +23,10 @@ var Game = {
 		r.render = true
 		r.drawFrame()
 		g.loop = setInterval(g.tick, 1000 / TICK_RATE)
+	},
+	die: function() {
+		g.started = false
+		g.loadMenu("dead")
 	},
 	newLevel: function() {
 		g.levelNum++

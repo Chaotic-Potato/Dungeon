@@ -10,11 +10,18 @@ var Player = {
 			x: 0,
 			y: 0
 		}
+		p.immuneTime = 0
 		p.abilites = []
 		p.hotSelect = 0
 		p.selected = null
 		p.inventory = new Inventory(10, 5)
 		p.equipment = new Inventory(5, 1)
+	},
+	tick: function() {
+		p.immuneTime = Math.max(0, p.immuneTime - 1)
+		if (p.hp <= 0) {
+			g.die()
+		}
 	},
 	interact: function() {
 		const MAX_RADIUS = 64
@@ -174,6 +181,12 @@ var Player = {
 			else {
 				p.inventory.items[p.selected.x][p.selected.y] = null
 			}
+		}
+	},
+	damage: function(n) {
+		if (p.immuneTime == 0) {
+			p.hp -= n
+			p.immuneTime = 30
 		}
 	}
 }
