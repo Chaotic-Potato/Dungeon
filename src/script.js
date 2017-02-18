@@ -21,7 +21,9 @@ var scripts = [
 	"item/Items.js",
 	"item/Inventory.js",
 	"entity/Entity.js",
+	"entity/Projectile.js",
 	"entity/Entities.js",
+	"Game.js",
 	"level/Room.js",
 	"level/Rooms.js",
 	"level/Level.js",
@@ -35,7 +37,6 @@ var scripts = [
 	"menu/Menus.js",
 	"Keyboard.js",
 	"Render.js",
-	"Game.js",
 	"screen/Screen.js",
 	"screen/Screens.js"
 ]

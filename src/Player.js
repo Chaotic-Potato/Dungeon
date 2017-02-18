@@ -6,7 +6,10 @@ var Player = {
 		p.mana = 25
 		p.xp = 0
 		p.statPoints = 0
-		p.room = [0, 0]
+		p.room = {
+			x: 0,
+			y: 0
+		}
 		p.abilites = []
 		p.hotSelect = 0
 		p.selected = null
@@ -16,9 +19,9 @@ var Player = {
 	interact: function() {
 		const MAX_RADIUS = 64
 		var near = []
-		var a = g.level.rooms[p.room[0]][p.room[1]].entities
+		var a = g.level.rooms[p.room.x][p.room.y].entities
 		for (i in a) {
-			var r = rad(a[i].x(), a[i].y(), p.x, p.y)
+			var r = rad(a[i].x, a[i].y, p.x, p.y)
 			if (r <= MAX_RADIUS) {
 				near.push({ent: a[i], rad: r})
 			}
@@ -44,10 +47,10 @@ var Player = {
 		 *FIX!!!
 		 */
 
-		var a = g.level.rooms[p.room[0]][p.room[1]].doors 
+		var a = g.level.rooms[p.room.x][p.room.y].doors 
 		if (p.x < 0) {
-			if (a.west && p.room[0] > 0) {
-				p.room[0]--
+			if (a.west && p.room.x > 0) {
+				p.room.x--
 				p.x = g.level.roomWidth - 1
 			}
 			else {
@@ -55,8 +58,8 @@ var Player = {
 			}
 		}
 		if (p.x >= g.level.roomWidth) {
-			if (a.east && p.room[0] < g.level.roomWidth - 1) {
-				p.room[0]++
+			if (a.east && p.room.x < g.level.roomWidth - 1) {
+				p.room.x++
 				p.x = 0
 			}
 			else {
@@ -64,8 +67,8 @@ var Player = {
 			}
 		}
 		if (p.y < 0) {
-			if (a.north && p.room[1] > 0) {
-				p.room[1]--
+			if (a.north && p.room.y > 0) {
+				p.room.y--
 				p.y = g.level.roomWidth - 1
 			}
 			else {
@@ -73,8 +76,8 @@ var Player = {
 			}
 		}
 		if (p.y >= g.level.roomWidth) {
-			if (a.south && p.room[1] < g.level.roomWidth - 1) {
-				p.room[1]++
+			if (a.south && p.room.y < g.level.roomWidth - 1) {
+				p.room.y++
 				p.y = 0
 			}
 			else {

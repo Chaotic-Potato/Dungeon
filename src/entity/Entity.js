@@ -1,6 +1,6 @@
 var Entity = function(x, y, texture, w, h, interact = function() {}, tick= function() {}) {
-	this.x = x
-	this.y = y
+	this.x = x()
+	this.y = y()
 	this.texture = texture
 	this.w = w
 	this.h = h

@@ -50,7 +50,7 @@ var Render = {
 	},
 	room: function() {
 		r.drawImage("room", r.getCenterX() - p.x, r.getCenterY() - p.y, g.level.roomWidth, g.level.roomWidth)	
-		var a = g.level.rooms[p.room[0]][p.room[1]].doors
+		var a = g.level.rooms[p.room.x][p.room.y].doors
 		for (i in a) {
 			if (a[i]) {
 				r.drawImage(i + "_door", r.getCenterX() - p.x, r.getCenterY() - p.y, g.level.roomWidth, g.level.roomWidth)
@@ -58,9 +58,9 @@ var Render = {
 		}
 	},
 	entities: function() {
-		var a = g.level.rooms[p.room[0]][p.room[1]].entities
+		var a = g.level.rooms[p.room.x][p.room.y].entities
 		for (i in a) {
-			r.drawImage(a[i].texture, r.getCenterX() + a[i].x() - p.x - (a[i].w / 2), r.getCenterY() + a[i].y() - p.y - (a[i].h / 2), a[i].w, a[i].h)
+			r.drawImage(a[i].texture, r.getCenterX() + a[i].x - p.x - (a[i].w / 2), r.getCenterY() + a[i].y - p.y - (a[i].h / 2), a[i].w, a[i].h)
 		}
 	},	
 	player: function() {

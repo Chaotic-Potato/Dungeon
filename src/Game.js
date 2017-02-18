@@ -25,7 +25,7 @@ var Game = {
 	newLevel: function() {
 		g.levelNum++
 		g.level = new Level(g.levelNum, 1024)
-		g.level.generate(p.room[0], p.room[1])
+		g.level.generate(p.room.x, p.room.y)
 		g.levels[g.levelNum] = g.level
 	},
 	tick: function() {
@@ -77,6 +77,11 @@ var Game = {
 	loadInv: function(i) {
 		g.openInv = i
 		g.screen = Screens.openInv
+	},
+	entityTick: function() {
+		for (i in g.level.rooms[p.room.x][p.room.y].entities) {
+			g.level.rooms[p.room.x][p.room.y].entities[i].tick()
+		}
 	}
 }
 
