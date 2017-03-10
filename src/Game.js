@@ -1,11 +1,12 @@
 var Game = {
 	loop: null,
-	screen: Screens.game,
+	started: false,
 	init: function() {
 		p.init()
 		g.levelNum = 0
+		g.openInv = null
+		g.started = true
 		g.levels = []
-		g.screen = Screens.game
 		g.newLevel()
 		g.pause()
 		g.resume()
@@ -23,10 +24,14 @@ var Game = {
 		r.drawFrame()
 		g.loop = setInterval(g.tick, 1000 / TICK_RATE)
 	},
+	die: function() {
+		g.started = false
+		g.loadMenu("dead")
+	},
 	newLevel: function() {
 		g.levelNum++
-		g.level = new Level(g.levelNum)
-		g.level.generate(p.room[0], p.room[1])
+		g.level = new Level(g.levelNum, 1024)
+		g.level.generate(p.room.x, p.room.y)
 		g.levels[g.levelNum] = g.level
 	},
 	tick: function() {
@@ -50,6 +55,7 @@ var Game = {
 				return
 			}
 		}
+		g.use()
 	},
 	unclick: function(e) {
 		for (i in g.screen.clickboxes) {
@@ -68,15 +74,21 @@ var Game = {
 				return
 			}
 		}
+	},
+	use: function() {
+		if (p.inventory.items[0][p.hotSelect] != null) {
+			p.inventory.items[0][p.hotSelect].use()
+		}
+	},
+	loadInv: function(i) {
+		g.openInv = i
+		g.screen = Screens.openInv
+	},
+	entityTick: function() {
+		for (i in g.level.rooms[p.room.x][p.room.y].entities) {
+			g.level.rooms[p.room.x][p.room.y].entities[i].tick()
+		}
 	}
 }
 
 var g = Game
-document.onkeydown = k.keyDown
-document.onkeyup = k.keyUp
-document.onkeypress = k.keyPress
-window.onresize = r.resize
-document.onmousedown = g.click
-document.onmouseup = g.unclick
-document.oncontextmenu = g.rclick
-g.loadMenu("main")
