@@ -102,5 +102,19 @@ var Screens = {
 			}
 			return a
 		})()
+	),
+	shop: new Screen(
+		[
+			k.tick
+		],
+		[
+			r.clickboxes
+		],
+		(function(){
+			var a = [
+				new Clickbox(function(){g.screen = Screens.game}, function(){}, function(){}, "exit", function(){return r.getWidth() - 64}, function(){return 0}, 64, 64)
+			]
+			return a
+		})()
 	)
 }

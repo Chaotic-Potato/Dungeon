@@ -126,6 +126,7 @@ var Render = {
 			{x: -1, y: 0},
 			{x: 1, y: 0}
 		]
+		r.drawText("bold small-caps 48px Arial", "#222", "left", "Coins: " + p.coins, 8, 56)
 		for (i in slots) {
 			if (p.equipment.items[i][0] != null) {
 				r.invSlot(p.equipment, i, 0, 208 + slots[i].x * 144, r.getCenterY() - 64 + slots[i].y * 144, 128)

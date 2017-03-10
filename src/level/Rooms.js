@@ -2,8 +2,8 @@ var Rooms = {
 	getList: function(l) {
 		return [
 			{weight: 8, obj: []},
-			{weight: 1, obj: []},
-			{weight: 4, obj: [new Entities.Chest(function(){return l / 2}, function() {return l / 2})]},
+			{weight: 1, obj: [new Entities.Shop(function(){return l / 2}, function(){return l / 2})]},
+			{weight: 4, obj: [new Entities.Chest(function(){return l / 2}, function(){return l / 2})]},
 			{weight: 3, obj: (function() {
 				var o = []
 				for (var i = 1; i <= 2; i++) {
