@@ -8,3 +8,9 @@ var Room = function() {
 	this.visited = false
 	this.entities = []
 }
+
+Room.prototype = {
+	spawn: function(e) {
+		this.entities.push(e)
+	}
+}
