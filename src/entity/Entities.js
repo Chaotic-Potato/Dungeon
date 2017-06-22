@@ -11,6 +11,11 @@ var Entities = {
 		e.inventory = new Inventory(1, 5)
 		return e
 	},
+	Shop: function(x, y) {
+		return new Entity(x, y, "shop", 64, 64, function(){
+			g.screen = Screens.shop
+		}, function(){})
+	},
 	Saw: function(x, y, w, h, velX, velY, damage) {
 		var e = new Entity(x, y, "saw", w, h, function(){}, function(){})
 		e.velX = velX

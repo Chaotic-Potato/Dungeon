@@ -4,7 +4,7 @@ var Stack = function(frames, frame, tick) {
 	this.tick = tick	
 }
 
-Stack.prototype = function() {
+Stack.prototype = {
 	get: function() {
 		return this.frames[this.frame]
 	}

@@ -6,6 +6,7 @@ var Player = {
 		p.mana = 25
 		p.xp = 0
 		p.statPoints = 0
+		p.coins = 0
 		p.room = {
 			x: 0,
 			y: 0
@@ -147,7 +148,7 @@ var Player = {
 		}
 	},
 	equip: function(n) {
-		if (p.inventory.items[p.selected.x][p.selected.y].slot == n) {
+		if (p.selected != null && p.inventory.items[p.selected.x][p.selected.y].slot == n) {
 			p.inventory.swap(p.selected.x, p.selected.y, n, 0, p.equipment)
 			Stats.update()
 		}

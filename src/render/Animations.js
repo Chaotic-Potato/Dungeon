@@ -1,14 +1,10 @@
-var Animation = function(stacks, stack, tick) {
-	this.stacks = stacks
-	this.stack = stack
-	this.tick = function() {
-		tick()
-		this.stacks[this.stack].tick()
-	}
-}
-
-Animation.prototype = function() {
-	get: function() {
-		return this.stacks[this.stack].get()
+var Animations = {
+	list: {
+		
+	},
+	tick: function() {
+		for (i in Animations.list) {
+			Animations.list[i].tick()
+		}
 	}
 }
