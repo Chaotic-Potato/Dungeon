@@ -7,8 +7,5 @@ var Stack = function(frames, frame, tick) {
 Stack.prototype = {
 	get: function() {
 		return this.frames[this.frame]
-	},
-	next: function() {
-		this.frame = (this.frame + 1) % this.frames.length
 	}
 }

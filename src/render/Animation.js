@@ -6,7 +6,7 @@ var Animation = function(stacks, stack, tick) {
 		this.stacks[this.stack].tick()
 	}
 }
-
+ 
 Animation.prototype = {
 	get: function() {
 		return this.stacks[this.stack].get()
