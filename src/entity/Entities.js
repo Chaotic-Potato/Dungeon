@@ -1,4 +1,9 @@
 var Entities = {
+	Enemies: {
+		Ghost: function(x, y) {
+			return new Enemy(x, y, "ghost", 64, 64, AIs.Meele, 10, 5)
+		}
+	},
 	End: function(x, y) {
 		return new Entity(x, y, "end", 64, 64, function() {
 			g.newLevel()

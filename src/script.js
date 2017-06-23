@@ -22,6 +22,8 @@ var scripts = [
 	"item/Inventory.js",
 	"entity/Entity.js",
 	"entity/Projectile.js",
+	"entity/enemy/AIs.js",
+	"entity/enemy/Enemy.js",
 	"entity/Entities.js",
 	"Game.js",
 	"level/Room.js",
