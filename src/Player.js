@@ -17,9 +17,14 @@ var Player = {
 		p.selected = null
 		p.inventory = new Inventory(10, 5)
 		p.equipment = new Inventory(5, 1)
+		p.itemCool = 0
+		p.hitboxs = [
+			new Hitbox(0, 0, 64, 64)
+		]
 	},
 	tick: function() {
 		p.immuneTime = Math.max(0, p.immuneTime - 1)
+		p.itemCool = Math.max(0, p.itemCool - 1)
 		if (p.hp <= 0) {
 			g.die()
 		}
@@ -91,6 +96,11 @@ var Player = {
 			else {
 				p.y = g.level.roomWidth - 1
 			}
+		}
+	},
+	use: function(x, y) {
+		if (p.inventory.items[p.hotSelect][0] != null && !p.itemCool) {
+			p.inventory.items[p.hotSelect][0].use(x, y)
 		}
 	},
 	gainXp: function(n) {

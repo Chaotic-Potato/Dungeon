@@ -1,8 +1,9 @@
 function get(i) {return document.getElementById(i)}
-function rad(x1, y1, x2, y2) {return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2))}
-function range(xa, ya, xb1, yb1, xb2, yb2) {return xa >= xb1 && xa < xb2 && ya >= yb1 && ya < yb2}
+function rad(x1, y1, x2, y2) {return Math.sqrt(Math.pow(x1-x2,2)+Math.pow(y1- y2,2))}
+function range(xa, ya, xb1, yb1, xb2, yb2) {return xa>=xb1&&xa<xb2&&ya>=yb1&&ya<yb2}
 function clone(o) {var a={};for(i in o){a[i]=o[i]}return a} 
 function equals(a, b) {for(i in a){if(a[i]!=b[i]){return false}}for(i in b){if(a[i]!=b[i]){return false}}return true}
+function ang(x, y) {let r = rad(x, y, 0, 0);return ((y / r < 0 ? 2 * Math.PI : 0) - Math.acos(x / r)) * (y < 0 ? 1 : -1)}
 
 var scripts = [
 	"item/Item.js",
@@ -20,8 +21,12 @@ var scripts = [
 	"item/consumable/Scroll.js",
 	"item/Items.js",
 	"item/Inventory.js",
+	"Hitbox.js",
 	"entity/Entity.js",
 	"entity/Projectile.js",
+	"entity/enemy/AIs.js",
+	"entity/enemy/Enemy.js",
+	"entity/enemy/MeeleEnemy.js",
 	"entity/Entities.js",
 	"Game.js",
 	"level/Room.js",

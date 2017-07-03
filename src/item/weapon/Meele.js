@@ -1,6 +1,16 @@
-var Meele = function(name, texture, damage, swingTime, length) {
-	var item = new Weapon(name, texture, function() {}, damage)
-	item.swingTime = swingTime
+var Meele = function(name, texture, damage, cooldown, length, angleWidth) {
+	var item = new Weapon(name, texture, function(x, y) {
+		p.itemCool = item.cooldown
+		g.level.rooms[p.room.x][p.room.y].entities.forEach(function(e){
+			if (e.hp != undefined && e.hitboxes.filter(function(h){
+				return h.sectorInt(p.x + (r.playerSize / 2) - e.x, p.y + (r.playerSize / 2) - e.y, item.length, ang(x - (get("canvas").width / 2), y - (get("canvas").height / 2)), item.angleWidth)
+			}).length > 0){
+				e.damaged(item.damage)
+			}
+		})
+	}, damage)
+	item.cooldown = cooldown
 	item.length = length
+	item.angleWidth = angleWidth
 	return item
 }

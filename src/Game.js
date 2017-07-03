@@ -55,7 +55,7 @@ var Game = {
 				return
 			}
 		}
-		g.use()
+		p.use(e.offsetX, e.offsetY)
 	},
 	unclick: function(e) {
 		for (i in g.screen.clickboxes) {
@@ -75,11 +75,6 @@ var Game = {
 			}
 		}
 	},
-	use: function() {
-		if (p.inventory.items[0][p.hotSelect] != null) {
-			p.inventory.items[0][p.hotSelect].use()
-		}
-	},
 	loadInv: function(i) {
 		g.openInv = i
 		g.screen = Screens.openInv
@@ -88,6 +83,7 @@ var Game = {
 		for (i in g.level.rooms[p.room.x][p.room.y].entities) {
 			g.level.rooms[p.room.x][p.room.y].entities[i].tick()
 		}
+		g.level.rooms[p.room.x][p.room.y].entities = g.level.rooms[p.room.x][p.room.y].entities.filter(function(e){return e.hp != 0})
 	}
 }
 
