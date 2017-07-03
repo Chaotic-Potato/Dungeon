@@ -24,7 +24,7 @@ Hitbox.prototype = {
 				continue
 			}
 			if (range(x, y, this.x0, this.y0, this.x1, this.y1)) {
-				as.push((((y - cy) / r < 0 ? 2 * Math.PI : 0) - Math.acos((x - cx) / r)) * (y - cy < 0 ? 1 : -1))	
+				as.push(ang(x - cx, y - cy))	
 			}
 		}
 		as = as.filter(function(e){let t = 2 * Math.PI; let d = Math.abs((a + t) % t - (e + t) % t); return Math.min(d, t - d) <= (aw / 2)})
