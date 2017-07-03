@@ -17,6 +17,9 @@ var Player = {
 		p.selected = null
 		p.inventory = new Inventory(10, 5)
 		p.equipment = new Inventory(5, 1)
+		p.hitboxs = [
+			new Hitbox(0, 0, 64, 64)
+		]
 	},
 	tick: function() {
 		p.immuneTime = Math.max(0, p.immuneTime - 1)

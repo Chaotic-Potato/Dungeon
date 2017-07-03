@@ -9,5 +9,6 @@ var AIs = {
 		e.dir = ((Math.abs(e.dir - dir) + (Math.PI * 2)) % (Math.PI * 2) >= (Math.PI / 2) ? Math.round(dir / Math.PI * 2) * Math.PI / 2 : e.dir)
 		e.x += Math.min(Math.abs(dx), Math.max(-1 * Math.abs(dx), e.speed * Math.round(Math.cos(e.dir))))
 		e.y += Math.min(Math.abs(dy), Math.max(-1 * Math.abs(dy), e.speed * Math.round(Math.sin(e.dir))))
+		e.attack(e.dir)
 	}
 }
