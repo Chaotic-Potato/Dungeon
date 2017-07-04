@@ -48,6 +48,16 @@ var Game = {
 		g.resume()
 	},
 	click: function(e) {
+		switch (e.which) {
+			case 1:
+				g.lclick(e)
+				break;
+			case 3:
+				g.rclick(e)
+
+		}
+	},
+	lclick: function(e) {
 		for (i in g.screen.clickboxes) {
 			var a = g.screen.clickboxes[i]
 			if (range(e.offsetX, e.offsetY, a.x(), a.y(), a.x() + a.w, a.y() + a.h)) {
@@ -58,6 +68,10 @@ var Game = {
 		p.use(e.offsetX, e.offsetY)
 	},
 	unclick: function(e) {
+		if (e.which == 3) {
+			p.blocking = false
+			p.itemCool = 30
+		}
 		for (i in g.screen.clickboxes) {
 			var a = g.screen.clickboxes[i]
 			if (range(e.offsetX, e.offsetY, a.x(), a.y(), a.x() + a.w, a.y() + a.h)) {
@@ -73,6 +87,9 @@ var Game = {
 				a.rclick()
 				return
 			}
+		}
+		if (p.inventory.items[p.hotSelect][0] != null && p.inventory.items[p.hotSelect][0].blockable) {
+			p.blocking = ang(e.offsetX - (get("canvas").width / 2), e.offsetY - (get("canvas").height / 2))
 		}
 	},
 	loadInv: function(i) {

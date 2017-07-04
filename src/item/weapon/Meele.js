@@ -13,5 +13,6 @@ var Meele = function(name, texture, damage, cooldown, length, angleWidth) {
 	item.cooldown = cooldown
 	item.length = length
 	item.angleWidth = angleWidth
+	item.blockable = true
 	return item
 }

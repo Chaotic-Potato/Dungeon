@@ -21,6 +21,7 @@ var Player = {
 		p.hitboxs = [
 			new Hitbox(0, 0, 64, 64)
 		]
+		p.blocking = false
 	},
 	tick: function() {
 		p.immuneTime = Math.max(0, p.immuneTime - 1)
@@ -123,7 +124,7 @@ var Player = {
 		return Math.round(25 * Math.pow(20, lvl / 100))
 	},
 	getSpeed: function(lvl=Stats.list.AGL.lvl) {
-		return Math.round(6 * Math.pow(2, lvl / 100))
+		return Math.round(6 * Math.pow(2, lvl / 100)) * (p.blocking == false ? 1 : 0.3)
 	},
 	select: function(x, y, click) {
 		p.selected = {
