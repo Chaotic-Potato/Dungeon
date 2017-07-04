@@ -28,6 +28,6 @@ Hitbox.prototype = {
 			}
 		}
 		as = as.filter(function(e){let t = 2 * Math.PI; let d = Math.abs((a + t) % t - (e + t) % t); return Math.min(d, t - d) <= (aw / 2)})
-		return as.length > 0
+		return as.length > 0 || [hitBoxReg(this, [cx, cy], a + aw), hitBoxReg(this, [cx, cy], a - aw)].filter(function(e){return e != null && e <= r}).length > 0
 	}
 }
