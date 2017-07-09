@@ -1,5 +1,5 @@
-var MeeleEnemy = function(x, y, texture, w, h, ai, hp, speed, damage, cooldown, reach, angleWidth, hitboxes) {
-	var entity = new Enemy(x, y, texture, w, h, function(e){entity.coolTimer = Math.max(0, entity.coolTimer - 1); ai(e)}, hp, speed)
+var MeeleEnemy = function(x, y, texture, w, h, ai, lvlLo, lvlHi, hp, speed, damage, cooldown, reach, angleWidth, hitboxes) {
+	var entity = new Enemy(x, y, texture, w, h, function(e){entity.coolTimer = Math.max(0, entity.coolTimer - 1); ai(e)}, lvlLo, lvlHi, hp, speed)
 	entity.damage = damage
 	entity.cooldown = cooldown
 	entity.coolTimer = 0
