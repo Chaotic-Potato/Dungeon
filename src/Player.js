@@ -2,6 +2,8 @@ var Player = {
 	init: function() {
 		p.x = 0
 		p.y = 0
+		p.velX = 0
+		p.velY = 0
 		p.hp = 50
 		p.mana = 25
 		p.xp = 0
@@ -29,6 +31,7 @@ var Player = {
 		if (p.hp <= 0) {
 			g.die()
 		}
+		p.move()
 	},
 	interact: function() {
 		const MAX_RADIUS = 64
@@ -53,15 +56,28 @@ var Player = {
 			min_obj.ent.interact()
 		}
 	},	
-	move: function(array) {
-		p.x += array[0] * p.getSpeed()
-		p.y += array[1] * p.getSpeed()
+	move: function() {
+		let dx = ((k.keys.d || 0) - (k.keys.a || 0)) * p.getSpeed()
+		let dy = ((k.keys.s || 0) - (k.keys.w || 0)) * p.getSpeed()
+		let dir = ang(dx, dy) || 0
+		dx *= Math.abs(Math.cos(dir))
+		dy *= Math.abs(Math.sin(dir))
+		p.velX += (dx - p.velX) / 5
+		p.velY += (dy - p.velY) / 5
+		p.x += Math.round(p.velX * 1000) / 1000
+		p.y += Math.round(p.velY * 1000) / 1000
+
 
 		/*
 		 *FIX!!!
 		 */
 
 		var a = g.level.rooms[p.room.x][p.room.y].doors 
+		for (let i = 0; i < 4; i++) {
+			if ((i < 2 ? p.x : p.y)) {
+			
+			}	
+		}
 		if (p.x < 0) {
 			if (a.west && p.room.x > 0) {
 				p.room.x--
