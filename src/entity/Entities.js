@@ -6,26 +6,26 @@ var Entities = {
 	},
 	Level: {
 		End: function(x, y) {
-			return new Entity(x, y, "end", 64, 64, function() {
+			return new Entity(x, y, "level/end", 64, 64, function() {
 				g.newLevel()
 			}, function() {})
 		},
 		Chest: function(x, y) {
-			var e = new Entity(x, y, "chest", 64, 64, function() {
+			var e = new Entity(x, y, "level/chest", 64, 64, function() {
 				g.loadInv(e.inventory)
 			}, function() {})
 			e.inventory = new Inventory(1, 5)
 			return e
 		},
 		Shop: function(x, y) {
-			return new Entity(x, y, "shop", 64, 64, function(){
+			return new Entity(x, y, "level/shop", 64, 64, function(){
 				g.screen = Screens.shop
 			}, function(){})
 		}
 	},
 	Trap: {
 		Saw: function(x, y, w, h, velX, velY, damage) {
-			var e = new Entity(x, y, "saw", w, h, function(){}, function(){})
+			var e = new Entity(x, y, "trap/saw", w, h, function(){}, function(){})
 			e.velX = velX
 			e.velY = velY
 			e.damage = damage

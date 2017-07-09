@@ -1,5 +1,5 @@
 var Enemy = function(x, y, texture, w, h, ai, lvlLo, lvlHi, hp, speed, hitboxes) {
-	var entity = new Entity(x, y, texture, w, h, undefined, function(){
+	var entity = new Entity(x, y, "enemy/" + texture, w, h, undefined, function(){
 		ai(entity)
 		entity.velX = conv(entity.velX, entity.lVelX, 0.2)
 		entity.velY = conv(entity.velY, entity.lVelY, 0.2)
