@@ -62,11 +62,10 @@ var Player = {
 		let dir = ang(dx, dy) || 0
 		dx *= Math.abs(Math.cos(dir))
 		dy *= Math.abs(Math.sin(dir))
-		p.velX += (dx - p.velX) / 5
-		p.velY += (dy - p.velY) / 5
-		p.x += Math.round(p.velX * 1000) / 1000
-		p.y += Math.round(p.velY * 1000) / 1000
-
+		p.velX = conv(p.velX, dx, 0.2)
+		p.velY = conv(p.velY, dy, 0.2)
+		p.x += round(p.velX, 3)
+		p.y += round(p.velY, 3)
 
 		/*
 		 *FIX!!!
