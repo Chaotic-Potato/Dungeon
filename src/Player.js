@@ -206,10 +206,14 @@ var Player = {
 			}
 		}
 	},
-	damage: function(n) {
+	damage: function(n, dir) {
 		if (p.immuneTime == 0) {
 			p.hp -= n
 			p.immuneTime = 30
+			if (dir != undefined) {
+				p.velX += Math.cos(dir) * 10
+				p.velY += Math.sin(dir) * 10
+			}
 		}
 	}
 }
