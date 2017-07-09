@@ -73,11 +73,6 @@ var Player = {
 		 */
 
 		var a = g.level.rooms[p.room.x][p.room.y].doors 
-		for (let i = 0; i < 4; i++) {
-			if ((i < 2 ? p.x : p.y)) {
-			
-			}	
-		}
 		if (p.x < 0) {
 			if (a.west && p.room.x > 0) {
 				p.room.x--
