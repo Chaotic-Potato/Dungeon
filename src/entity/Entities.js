@@ -1,7 +1,7 @@
 var Entities = {
 	Enemy: {
 		Ghost: function(x, y) {
-			return new MeeleEnemy(x, y, "ghost", 64, 64, AIs.Meele, 1, 5, 10, 5, 3, 48, 64, Math.PI * 2 / 3, [new Hitbox(0, 0, 64, 64)])
+			return new MeeleEnemy(x, y, "ghost", 64, 64, AIs.Meele, 1, 5, 10, 5, 3, 48, 64, Math.PI / 3, [new Hitbox(0, 0, 64, 64)])
 		}
 	},
 	Level: {
@@ -38,7 +38,7 @@ var Entities = {
 				if (Math.abs(this.y - (g.level.roomWidth - 1) / 2) >= (g.level.roomWidth - 1) / 2) {
 					this.velY *= -1
 				}
-				if (p.hitboxes.filter(function(h){return h.sectorInt(e.x + (e.w / 2) - p.x, e.y + (e.h / 2) - p.y, e.w / 2, 0, 0)}).length > 0) {
+				if (p.hitboxes.filter(function(h){return h.sectorInt(e.x + (e.w / 2) - p.x, e.y + (e.h / 2) - p.y, e.w / 2, 0, Math.PI)}).length > 0) {
 					p.damage(this.damage)
 				}
 			}

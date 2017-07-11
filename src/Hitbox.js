@@ -27,7 +27,7 @@ Hitbox.prototype = {
 				as.push(ang(x - cx, y - cy))	
 			}
 		}
-		as = as.filter(function(e){angDist(a, e) <= (aw / 2)})
+		as = as.filter(function(e){angDist(a, e) >= (aw / 2)})
 		return as.length > 0 || [hitBoxReg(this, [cx, cy], a + aw), hitBoxReg(this, [cx, cy], a - aw)].filter(function(e){return e != null && e <= r}).length > 0
 	}
 }
