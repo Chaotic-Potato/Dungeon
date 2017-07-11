@@ -20,7 +20,7 @@ var Player = {
 		p.inventory = new Inventory(10, 5)
 		p.equipment = new Inventory(5, 1)
 		p.itemCool = 0
-		p.hitboxs = [
+		p.hitboxes = [
 			new Hitbox(0, 0, 64, 64)
 		]
 		p.blocking = false

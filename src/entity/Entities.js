@@ -38,7 +38,7 @@ var Entities = {
 				if (Math.abs(this.y - (g.level.roomWidth - 1) / 2) >= (g.level.roomWidth - 1) / 2) {
 					this.velY *= -1
 				}
-				if (range(this.x, this.y, p.x - this.w, p.y - this.h, p.x + this.w, p.y + this.h)) {
+				if (p.hitboxes.filter(function(h){return h.sectorInt(e.x + (e.w / 2) - p.x, e.y + (e.h / 2) - p.y, e.w / 2, 0, 0)}).length > 0) {
 					p.damage(this.damage)
 				}
 			}
