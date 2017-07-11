@@ -1,6 +1,7 @@
 var Game = {
 	loop: null,
 	started: false,
+	tickRate: 60,
 	init: function() {
 		p.init()
 		g.levelNum = 0
@@ -18,11 +19,10 @@ var Game = {
 		r.clear()
 	},
 	resume: function() {
-		const TICK_RATE = 60
 		g.pause()
 		r.render = true
 		r.drawFrame()
-		g.loop = setInterval(g.tick, 1000 / TICK_RATE)
+		g.loop = setInterval(g.tick, 1000 / g.tickRate)
 	},
 	die: function() {
 		g.started = false
@@ -95,6 +95,18 @@ var Game = {
 	loadInv: function(i) {
 		g.openInv = i
 		g.screen = Screens.openInv
+	},
+	getEnemies: function() {
+		let out = []
+		for (i in Entities.Enemy) {
+			t = new Entities.Enemy[i](function(){},function(){})
+			if (t.lvlLo <= g.levelNum && g.levelNum <= t.lvlHi) {
+				out.push({name: i, dps: t.getDps()})
+			}
+		}
+		out.sort(function(a, b){return(a.dps == b.dps ? 0 : (a.dps < b.dps ? -1 : 1))})
+		out = out.map(function(e){return e.name})
+		return out
 	},
 	entityTick: function() {
 		for (i in g.level.rooms[p.room.x][p.room.y].entities) {

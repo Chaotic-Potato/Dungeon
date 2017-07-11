@@ -14,5 +14,8 @@ var MeeleEnemy = function(x, y, texture, w, h, ai, lvlLo, lvlHi, hp, speed, dama
 			}
 		}	
 	}
+	entity.getDps = function() {
+		return g.tickRate * entity.damage / entity.cooldown
+	}
 	return entity
 } 
