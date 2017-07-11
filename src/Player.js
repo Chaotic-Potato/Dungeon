@@ -2,6 +2,8 @@ var Player = {
 	init: function() {
 		p.x = 0
 		p.y = 0
+		p.velX = 0
+		p.velY = 0
 		p.hp = 50
 		p.mana = 25
 		p.xp = 0
@@ -21,6 +23,7 @@ var Player = {
 		p.hitboxs = [
 			new Hitbox(0, 0, 64, 64)
 		]
+		p.blocking = false
 	},
 	tick: function() {
 		p.immuneTime = Math.max(0, p.immuneTime - 1)
@@ -28,6 +31,7 @@ var Player = {
 		if (p.hp <= 0) {
 			g.die()
 		}
+		p.move()
 	},
 	interact: function() {
 		const MAX_RADIUS = 64
@@ -52,9 +56,16 @@ var Player = {
 			min_obj.ent.interact()
 		}
 	},	
-	move: function(array) {
-		p.x += array[0] * p.getSpeed()
-		p.y += array[1] * p.getSpeed()
+	move: function() {
+		let dx = ((k.keys.d || 0) - (k.keys.a || 0)) * p.getSpeed()
+		let dy = ((k.keys.s || 0) - (k.keys.w || 0)) * p.getSpeed()
+		let dir = ang(dx, dy) || 0
+		dx *= Math.abs(Math.cos(dir))
+		dy *= Math.abs(Math.sin(dir))
+		p.velX = conv(p.velX, dx, 0.2)
+		p.velY = conv(p.velY, dy, 0.2)
+		p.x += round(p.velX, 3)
+		p.y += round(p.velY, 3)
 
 		/*
 		 *FIX!!!
@@ -123,7 +134,7 @@ var Player = {
 		return Math.round(25 * Math.pow(20, lvl / 100))
 	},
 	getSpeed: function(lvl=Stats.list.AGL.lvl) {
-		return Math.round(6 * Math.pow(2, lvl / 100))
+		return Math.round(6 * Math.pow(2, lvl / 100)) * (p.blocking == false ? 1 : 0.3)
 	},
 	select: function(x, y, click) {
 		p.selected = {
@@ -194,10 +205,14 @@ var Player = {
 			}
 		}
 	},
-	damage: function(n) {
+	damage: function(n, dir) {
 		if (p.immuneTime == 0) {
 			p.hp -= n
 			p.immuneTime = 30
+			if (dir != undefined) {
+				p.velX += Math.cos(dir) * 10
+				p.velY += Math.sin(dir) * 10
+			}
 		}
 	}
 }

@@ -23,10 +23,6 @@ var Keyboard = {
 	},
 	tick: function() {
 		var keys = {
-			w: function() {p.move([0, -1])},
-			s: function() {p.move([0, 1])},
-			a: function() {p.move([-1, 0])},
-			d: function() {p.move([1, 0])},
 			Escape: function() {g.loadMenu("pause")}
 		}
 		for (i in keys) {

@@ -49,11 +49,11 @@ var Render = {
 		}
 	},
 	room: function() {
-		r.drawImage("room", r.getCenterX() - p.x, r.getCenterY() - p.y, g.level.roomWidth, g.level.roomWidth)	
+		r.drawImage("level/room", r.getCenterX() - p.x, r.getCenterY() - p.y, g.level.roomWidth, g.level.roomWidth)	
 		var a = g.level.rooms[p.room.x][p.room.y].doors
 		for (i in a) {
 			if (a[i]) {
-				r.drawImage(i + "_door", r.getCenterX() - p.x, r.getCenterY() - p.y, g.level.roomWidth, g.level.roomWidth)
+				r.drawImage("level/" + i + "_door", r.getCenterX() - p.x, r.getCenterY() - p.y, g.level.roomWidth, g.level.roomWidth)
 			}
 		}
 	},
@@ -64,7 +64,7 @@ var Render = {
 		}
 	},	
 	player: function() {
-		r.drawImage("player", r.getCenterX() - (r.playerSize / 2), r.getCenterY() - (r.playerSize / 2), r.playerSize, r.playerSize)
+		r.drawImage("level/player", r.getCenterX() - (r.playerSize / 2), r.getCenterY() - (r.playerSize / 2), r.playerSize, r.playerSize)
 	},
 	lvlNum: function() {
 		r.drawText("bold small-caps 48px Arial", "#222", "left", "Floor " + g.levelNum, 8, 56)
@@ -94,17 +94,17 @@ var Render = {
 		}
 		var i = 3
 		for (x in stat) {
-			r.drawImage(x + "Bar", 8, r.getHeight() - (56 * i), 272, 48)
-			r.drawImage(x + "BarFull", 16, r.getHeight() - (56 * i), 256 * stat[x].get(), 48, 8, 0, 256 * stat[x].get(), 48)
+			r.drawImage("hud/" + x + "Bar", 8, r.getHeight() - (56 * i), 272, 48)
+			r.drawImage("hud/" + x + "BarFull", 16, r.getHeight() - (56 * i), 256 * stat[x].get(), 48, 8, 0, 256 * stat[x].get(), 48)
 			r.drawText("24px Arial", "#000", "center", stat[x].disp(), 144, r.getHeight() - 56 * i + 32)
 			i--
 		}
 	},
 	hotbar: function() {
 		const l = p.inventory.items.length
-		r.drawImage("hotbar", r.getCenterX() - (32 * l) - 8, r.getHeight() - 80, 16 + l * 64, 80)	
+		r.drawImage("hud/hotbar", r.getCenterX() - (32 * l) - 8, r.getHeight() - 80, 16 + l * 64, 80)	
 		for (var i = 0; i < l; i++) {
-			r.drawImage((p.hotSelect == i ? "selected" : "invSlot"), r.getCenterX() - (64 * (l / 2 - i)), r.getHeight() - 72, 64, 64)
+			r.drawImage("hud/" + (p.hotSelect == i ? "selected" : "invSlot"), r.getCenterX() - (64 * (l / 2 - i)), r.getHeight() - 72, 64, 64)
 			if (p.inventory.items[i][0] != null) {
 				r.invSlot(p.inventory, i, 0, r.getCenterX() - (64 * (l / 2 - i)), r.getHeight() - 72, 64)
 			}

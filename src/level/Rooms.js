@@ -14,7 +14,17 @@ var Rooms = {
 				}
 				return o
 			})()},
-			{weight: 4, obj: []}
+			{weight: 4, obj: (function(){
+				let o = []
+				for (let i = 1; i < 4; i++) {
+					for (let j = 1; j < 4; j++) {
+						if ((i + j) % 2 == 0) {
+							o.push(new Entities.Enemy[(function(){let e = g.getEnemies(); return e[Math.floor(Math.random() * e.length)]})()](function(){return i * l / 4}, function(){return j * l / 4}))
+						}
+					}
+				}
+				return o
+			})()}
 		]
 	},
 	getRoom: function(l) {
