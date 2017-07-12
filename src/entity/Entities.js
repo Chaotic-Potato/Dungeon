@@ -15,6 +15,65 @@ var Entities = {
 				g.loadInv(e.inventory)
 			}, function() {})
 			e.inventory = new Inventory(1, 5)
+			let items = [
+				{p: 0.2, i: function(){return null}},
+				{p: 0.9, s: [
+					{w: 3, i: function(){return null}},
+					{w: 2, i: function(){return null}}
+				]},
+				{p: 0.4, s: [
+					{w: 1, i: function(){return null}},
+					{w: 1, i: function(){return null}},
+					{w: 1, i: function(){return null}}
+				]},
+				{p: 0.35, s: [
+					{w: 1, i: function(){return null}},
+					{w: 1, i: function(){return null}},
+					{w: 2, s: [
+						{w: 1, i: function(){return null}},
+						{w: 1, i: function(){return null}},
+						{w: 1, i: function(){return null}}
+					]}
+				]},
+				{p: 0.15, i: function(){return null}}
+			]
+			let o = []
+			for (let i in items) {
+				if (items[i].p > Math.random()) {
+					if (items[i].s) {
+						let total = 0
+						for (let j in items[i].s) {
+							total += items[i].s[j].w
+						}
+						total = Math.floor(total * Math.random())
+						let j = -1
+						while (total >= 0) {
+							total -= items[i].s[1 + j++].w
+						}
+						if (items[i].s[j].s) {
+							let total = 0
+							for (let k in items[i].s[j].s) {
+								total += items[i].s[j].s[k].w
+							}
+							total = Math.floor(total * Math.random())
+							let k = -1
+							while (total >= 0) {
+								total -= items[i].s[j].s[1 + k++].w
+							}
+							o.push(items[i].s[j].s[k].i())
+						}
+						else {
+							o.push(items[i].s[j].i())
+						}
+					}
+					else {
+						o.push(items[i].i())
+					}
+				}
+			}
+			for (i in o) {
+				e.inventory.items[0][i] = o[i]
+			}
 			return e
 		},
 		Shop: function(x, y) {
