@@ -1,10 +1,10 @@
 var Rooms = {
 	getList: function(l) {
 		return [
-			{weight: 8, obj: []},
-			{weight: 1, obj: [new Entities.Level.Shop(function(){return l / 2}, function(){return l / 2})]},
-			{weight: 4, obj: [new Entities.Level.Chest(function(){return l / 2}, function(){return l / 2})]},
-			{weight: 3, obj: (function() {
+			{weight: 8, obj: function(){return []}},
+			{weight: 1, obj: function(){return [new Entities.Level.Shop(function(){return l / 2}, function(){return l / 2})]}},
+			{weight: 4, obj: function(){return [new Entities.Level.Chest(function(){return l / 2}, function(){return l / 2})]}},
+			{weight: 3, obj: function(){
 				var o = []
 				for (var i = 1; i <= 2; i++) {
 					for (var j = 0; j < 2; j++) {
@@ -13,8 +13,8 @@ var Rooms = {
 					}
 				}
 				return o
-			})()},
-			{weight: 4, obj: (function(){
+			}},
+			{weight: 4, obj: function(){
 				let o = []
 				for (let i = 1; i < 4; i++) {
 					for (let j = 1; j < 4; j++) {
@@ -24,7 +24,7 @@ var Rooms = {
 					}
 				}
 				return o
-			})()}
+			}}
 		]
 	},
 	getRoom: function(l) {
@@ -37,7 +37,7 @@ var Rooms = {
 		for (i in list) {
 			choice -= list[i].weight
 			if (choice < 0) {
-				return list[i].obj
+				return list[i].obj()
 			}
 		}
 	}
