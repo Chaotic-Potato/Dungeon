@@ -1,7 +1,7 @@
 var Entities = {
 	Enemy: {
 		Ghost: function(x, y) {
-			return new MeeleEnemy(x, y, "ghost", 64, 64, AIs.Meele, 1, 5, 10, 5, 3, 48, 64, Math.PI / 3, [new Hitbox(0, 0, 64, 64)])
+			return new MeleeEnemy(x, y, "ghost", 64, 64, AIs.Melee, 1, 5, 10, 5, 3, 48, 64, Math.PI / 3, [new Hitbox(0, 0, 64, 64)])
 		}
 	},
 	Level: {

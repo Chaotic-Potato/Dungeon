@@ -1,4 +1,4 @@
-var Meele = function(name, texture, damage, cooldown, length, angleWidth) {
+var Melee = function(name, texture, damage, cooldown, length, angleWidth) {
 	var item = new Weapon(name, texture, function(x, y) {
 		let a = ang(x - (get("canvas").width / 2), y - (get("canvas").height / 2))
 		p.itemCool = item.cooldown
