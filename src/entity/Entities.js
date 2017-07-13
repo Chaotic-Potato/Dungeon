@@ -15,27 +15,42 @@ var Entities = {
 				g.loadInv(e.inventory)
 			}, function() {})
 			e.inventory = new Inventory(1, 5)
+			let getItem = function(a) {
+				let choices = []
+				for (i in a) {
+					let t = new a[i]()
+					if (t.lvlLo <= g.levelNum && g.levelNum <= t.lvlHi) {
+						choices.push(i)
+					}
+				}
+				if (choices.length) {
+					return a[choices[Math.floor(Math.random() * choices.length)]]
+				}
+				else {
+					return null
+				}
+			}
 			let items = [
 				{p: 0.2, i: function(){return null}},
 				{p: 0.9, s: [
-					{w: 3, i: function(){return null}},
-					{w: 2, i: function(){return null}}
+					{w: 3, i: function(){return new getItem(Items.Consumable.Potion)}},
+					{w: 2, i: function(){return new getItem(Items.Consumable.Scroll)}}
 				]},
 				{p: 0.4, s: [
-					{w: 1, i: function(){return null}},
-					{w: 1, i: function(){return null}},
-					{w: 1, i: function(){return null}}
+					{w: 1, i: function(){return new getItem(Items.Weapon.Melee)}},
+					{w: 1, i: function(){return new getItem(Items.Weapon.Range)}},
+					{w: 1, i: function(){return new getItem(Items.Weapon.Spell)}}
 				]},
 				{p: 0.35, s: [
-					{w: 1, i: function(){return null}},
-					{w: 1, i: function(){return null}},
+					{w: 1, i: function(){return new getItem(Items.Equipment.Accessory)}},
+					{w: 1, i: function(){return new getItem(Items.Equipment.Ring)}},
 					{w: 2, s: [
-						{w: 1, i: function(){return null}},
-						{w: 1, i: function(){return null}},
-						{w: 1, i: function(){return null}}
+						{w: 1, i: function(){return new getItem(Items.Equipment.Armor.Head)}},
+						{w: 1, i: function(){return new getItem(Items.Equipment.Armor.Chest)}},
+						{w: 1, i: function(){return new getItem(Items.Equipment.Armor.Legs)}}
 					]}
 				]},
-				{p: 0.15, i: function(){return null}}
+				{p: 0.15, i: function(){return new getItem(Items.Ability)}
 			]
 			let o = []
 			for (let i in items) {

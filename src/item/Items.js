@@ -1,27 +1,35 @@
 var Items = {
-	Abilities: {
+	Ability: {
 
 	},
-	Consumables: {
-		Potions: {
+	Consumable: {
+		Potion: {
 
 		},
-		Scrolls: {
+		Scroll: {
 
 		}
 	},
 	Equipment: {
-		Accessories: {
+		Accessory: {
 
 		},
 		Armor: {
-
+			Head: {
+				
+			},
+			Chest: {
+				
+			},
+			Legs: {
+				
+			}
 		},
-		Rings: {
+		Ring: {
 
 		}
 	},
-	Weapons: {
+	Weapon: {
 		Meele: {
 
 		},
