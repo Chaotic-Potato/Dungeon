@@ -50,7 +50,7 @@ var Entities = {
 						{w: 1, i: function(){return new getItem(Items.Equipment.Armor.Legs)}}
 					]}
 				]},
-				{p: 0.15, i: function(){return new getItem(Items.Ability)}
+				{p: 0.15, i: function(){return new getItem(Items.Ability)}}
 			]
 			let o = []
 			for (let i in items) {
